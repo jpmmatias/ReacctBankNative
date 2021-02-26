@@ -125,10 +125,10 @@ React Bank Native
 
 ## Contatos
 
-[Bruno Lourenço](https://github.com/bruunos)
-[Christian Spinelli](https://github.com/ChristianSpinelli) - chris.spinelli93@gmail.com
-[Gustavo "Piá" de Moraes Xavier](https://github.com/piagja)
-[João Pedro Matias](https://github.com/jpmmatias) - jpmmatias@gmail.com
+- [Bruno Lourenço](https://github.com/bruunos)
+- [Christian Spinelli](https://github.com/ChristianSpinelli) - chris.spinelli93@gmail.com
+- [Gustavo "Piá" de Moraes Xavier](https://github.com/piagja)
+- [João Pedro Matias](https://github.com/jpmmatias) - jpmmatias@gmail.com
 
 <!-- ACKNOWLEDGEMENTS -->
 
