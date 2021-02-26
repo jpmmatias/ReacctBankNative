@@ -39,7 +39,7 @@ const Routes = () => {
 	}
 	return (
 		<NavigationContainer>
-			{!logged ? <AppTabs /> : <AuthRoutes />}
+			{logged ? <AppTabs /> : <AuthRoutes />}
 		</NavigationContainer>
 	);
 };

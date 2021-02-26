@@ -2,12 +2,12 @@ import React from 'react';
 import { Text } from 'react-native';
 import { Center } from '../components/Center';
 
-const Home = () => {
+const Planos = () => {
 	return (
 		<Center>
-			<Text>Home</Text>
+			<Text>Planos</Text>
 		</Center>
 	);
 };
 
-export default Home;
+export default Planos;
