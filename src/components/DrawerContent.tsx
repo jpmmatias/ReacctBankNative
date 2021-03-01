@@ -7,7 +7,10 @@ import {
 	TouchableOpacity,
 	Dimensions,
 } from 'react-native';
-
+import {
+	DrawerContentScrollView,
+	DrawerContentComponentProps,
+} from '@react-navigation/drawer';
 import { FontAwesome5, AntDesign, Ionicons } from '@expo/vector-icons';
 const { width, height } = Dimensions.get('screen');
 
@@ -52,10 +55,7 @@ const styles = StyleSheet.create({
 });
 
 export function DrawerContent(props: DrawerContentComponentProps) {
-	const dispatch = useDispatch();
-	const store = useStore();
 	return (
-
 		<View style={styles.container}>
 			<DrawerContentScrollView {...props}>
 				{/* Header */}
@@ -94,24 +94,6 @@ export function DrawerContent(props: DrawerContentComponentProps) {
 					<Ionicons name='exit-outline' size={24} color='#8C52E5' />
 				</TouchableOpacity>
 			</DrawerContentScrollView>
-
-		<View
-			style={{
-				flex: 1,
-				justifyContent: 'center',
-			}}
-		>
-			<Text>Dados do Usuárioo</Text>
-			<Button
-				title='Logout'
-				onPress={() => {
-					AsyncStorage.clear();
-					dispatch(Logout());
-					console.log(store.getState());
-					props.navigation.closeDrawer();
-				}}
-			/>
-
 		</View>
 	);
 }
