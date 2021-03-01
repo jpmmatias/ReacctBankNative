@@ -196,6 +196,7 @@ const SignIn = ({ navigation, route }: AuthNavProps<'SignIn'>) => {
 
 const styles = StyleSheet.create({
 	container: {
+		fontFamily: 'Roboto-Regular',
 		flex: 1,
 		backgroundColor: '#8C52E5',
 		alignItems: 'center',
