@@ -10,7 +10,7 @@
     Projeto de React Native feito durante o bootcamp da Accenture Academy
     <br />
     <br />
-    <!-- <a href="https://github.com/othneildrew/Best-README-Template">Link do Projeto</a> -->
+    <!-- <a href="#">Link do Projeto</a> -->
   </p>
 </p>
 
@@ -18,7 +18,7 @@
   <summary>Tabela de conteúdo</summary>
   <ol>
     <li>
-      <a href="#about-the-project">Sobre o Projeto</a>
+      <a href="#about-the-project"> o o Projeto</a>
       <ul>
         <li><a href="#built-with">Feito com..</a></li>
           <li><a href="#mindmap">MindMap</a></li>
@@ -37,6 +37,7 @@
   </ol>
 </details>
 <div id='about-the-project'></div>
+
 ## Sobre o Projeto
 
 ![Product Name Screen Shot](src/assets/images/ProjectPicture.png)
@@ -48,6 +49,7 @@ Este projeto foi realizado por João Pedro, Bruno, Christian e Gustavo, estduant
 A aplicação mobile multiplataforma consiste em um serviço de banco digital fícticio, que possibilita o usuário a criar conta, fazer lançamentos, transações, transfêrencias e mudar planos através da [Gama Educação - API](https://accenture-java-desafio.herokuapp.com/).
 
 <div id='built-with'></div>
+
 ### Feito com:
 
 - [React Native](https://reactnative.dev/)
@@ -123,10 +125,10 @@ React Bank Native
 
 ## Contatos
 
-[Bruno Lourenço](https://github.com/bruunos)
-[Christian Spinelli](https://github.com/ChristianSpinelli) - chris.spinelli93@gmail.com
-[Gustavo "Piá" de Moraes Xavier](https://github.com/piagja)
-[João Pedro Matias](https://github.com/jpmmatias) - jpmmatias@gmail.com
+- [Bruno Lourenço](https://github.com/bruunos)
+- [Christian Spinelli](https://github.com/ChristianSpinelli) - chris.spinelli93@gmail.com
+- [Gustavo "Piá" de Moraes Xavier](https://github.com/piagja)
+- [João Pedro Matias](https://github.com/jpmmatias) - jpmmatias@gmail.com
 
 <!-- ACKNOWLEDGEMENTS -->
 
