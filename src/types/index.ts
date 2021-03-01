@@ -1,6 +1,11 @@
 import { StackNavigationProp } from '@react-navigation/stack';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { RouteProp } from '@react-navigation/native';
+import {
+	BottomTabBarProps,
+	BottomTabBarOptions,
+	BottomTabNavigationProp,
+} from '@react-navigation/bottom-tabs';
 
 export type AuthParamList = {
 	Login: undefined;
@@ -17,6 +22,7 @@ export type AppParamList = {
 	Lançamentos: undefined;
 	Depositar: undefined;
 	Planos: undefined;
+	tabBar?: (props: BottomTabBarProps<BottomTabBarOptions>) => React.ReactNode;
 };
 
 export interface AuthNavProps<T extends keyof AuthParamList> {
@@ -42,4 +48,21 @@ export interface LancamentosDrawerNavProps<
 > {
 	navigation: DrawerNavigationProp<LancamentosParamList, T>;
 	route: RouteProp<LancamentosParamList, T>;
+}
+
+export interface AppTabNavProps<T extends keyof AppParamList> {
+	navigation: BottomTabNavigationProp<AppParamList, T>;
+	route: RouteProp<AppParamList, T>;
+}
+
+export interface ITab {
+	color: string;
+	tab: any;
+	onPress: () => void;
+	icon: string;
+}
+
+export interface IHeader {
+	name: string;
+	onPress: () => void;
 }

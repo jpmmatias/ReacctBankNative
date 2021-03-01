@@ -115,6 +115,7 @@ const styles = StyleSheet.create({
 		flex: 1,
 		backgroundColor: '#8C52E5',
 		alignItems: 'center',
+		fontFamily: 'Roboto-Regular',
 	},
 	form: {
 		marginBottom: 37,
