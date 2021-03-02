@@ -10,6 +10,7 @@ import {
 	Image,
 	Dimensions,
 	TextInput,
+	ScrollView,
 	TouchableWithoutFeedback,
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -46,65 +47,67 @@ const PasswordRecovery = ({
 				style={styles.logo}
 				source={require('../assets/images/logo-gamaacademy.png')}
 			/>
-			<Card>
-				<View style={styles.cardBody}>
-					<Text style={styles.title}>Redefinir Senha</Text>
-					<View style={styles.form}>
-						<TextInput
-							textContentType='emailAddress'
-							value={email}
-							ref={inputRef}
-							onChangeText={(text) => {
-								setEmail(text);
+			<ScrollView>
+				<Card>
+					<View style={styles.cardBody}>
+						<Text style={styles.title}>Redefinir Senha</Text>
+						<View style={styles.form}>
+							<TextInput
+								textContentType='emailAddress'
+								value={email}
+								ref={inputRef}
+								onChangeText={(text) => {
+									setEmail(text);
+								}}
+								blurOnSubmit={false}
+								placeholderTextColor='#878686'
+								placeholder='Digite seu email'
+								style={[styles.input, { marginBottom: 50 }]}
+							></TextInput>
+							<TextInput
+								onSubmitEditing={() => {
+									if (inputRef.current) {
+										inputRef.current.focus();
+									}
+								}}
+								placeholderTextColor='#878686'
+								placeholder='Digite seu login'
+								textContentType='username'
+								value={username}
+								onChangeText={(text) => {
+									setUsername(text);
+								}}
+								blurOnSubmit={false}
+								style={[styles.input, { marginBottom: 79 }]}
+							></TextInput>
+							<Button
+								text='Continuar'
+								handleClick={handleSubmit}
+								textColor='#fff'
+								backgroundColor='#68DE5A'
+								textSize={22}
+								widthSize={265.64}
+								heightSize={56.97}
+								textWeight='600'
+							/>
+						</View>
+						<TouchableWithoutFeedback
+							onPress={() => {
+								navigation.navigate('Login');
 							}}
-							blurOnSubmit={false}
-							placeholderTextColor='#878686'
-							placeholder='Digite seu email'
-							style={[styles.input, { marginBottom: 50 }]}
-						></TextInput>
-						<TextInput
-							onSubmitEditing={() => {
-								if (inputRef.current) {
-									inputRef.current.focus();
-								}
+						>
+							<Text style={styles.link}>Ir para Login</Text>
+						</TouchableWithoutFeedback>
+						<TouchableWithoutFeedback
+							onPress={() => {
+								navigation.navigate('SignIn');
 							}}
-							placeholderTextColor='#878686'
-							placeholder='Digite seu login'
-							textContentType='username'
-							value={username}
-							onChangeText={(text) => {
-								setUsername(text);
-							}}
-							blurOnSubmit={false}
-							style={[styles.input, { marginBottom: 79 }]}
-						></TextInput>
-						<Button
-							text='Continuar'
-							handleClick={handleSubmit}
-							textColor='#fff'
-							backgroundColor='#68DE5A'
-							textSize={22}
-							widthSize={265.64}
-							heightSize={56.97}
-							textWeight='600'
-						/>
+						>
+							<Text style={styles.link}>Ainda não sou cliente </Text>
+						</TouchableWithoutFeedback>
 					</View>
-					<TouchableWithoutFeedback
-						onPress={() => {
-							navigation.navigate('Login');
-						}}
-					>
-						<Text style={styles.link}>Ir para Login</Text>
-					</TouchableWithoutFeedback>
-					<TouchableWithoutFeedback
-						onPress={() => {
-							navigation.navigate('SignIn');
-						}}
-					>
-						<Text style={styles.link}>Ainda não sou cliente </Text>
-					</TouchableWithoutFeedback>
-				</View>
-			</Card>
+				</Card>
+			</ScrollView>
 		</View>
 	);
 };
