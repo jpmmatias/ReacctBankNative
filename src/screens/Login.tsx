@@ -18,7 +18,9 @@ import { AuthNavProps } from '../types';
 const { width, height } = Dimensions.get('window');
 
 import { useStore } from 'react-redux';
+
 import { AuthContext } from '../utils/auth/AuthProvider';
+
 const Login = ({ navigation, route }: AuthNavProps<'Login'>) => {
 	const { login } = useContext(AuthContext);
 	const [username, setUsername] = useState('');
@@ -42,6 +44,9 @@ const Login = ({ navigation, route }: AuthNavProps<'Login'>) => {
 					text2: err.message,
 				});
 			});
+
+		//	navigation.navigate('Planos')
+		//	navigation.navigate("Transferir")
 	};
 
 	return (
@@ -70,7 +75,7 @@ const Login = ({ navigation, route }: AuthNavProps<'Login'>) => {
 								setUsername(text);
 							}}
 							blurOnSubmit={false}
-							style={[styles.input, { marginBottom: 79 }]}
+							style={[styles.input, { marginBottom: 45 }]}
 						></TextInput>
 						<TextInput
 							textContentType='password'

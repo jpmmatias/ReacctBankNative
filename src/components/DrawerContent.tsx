@@ -7,7 +7,6 @@ import {
 	TouchableOpacity,
 	Dimensions,
 } from 'react-native';
-
 import { FontAwesome5, AntDesign, Ionicons } from '@expo/vector-icons';
 import {
 	DrawerContentComponentProps,
@@ -59,6 +58,7 @@ const styles = StyleSheet.create({
 
 export function DrawerContent(props: DrawerContentComponentProps) {
 	const { logout } = useContext(AuthContext);
+
 	return (
 		<View style={styles.container}>
 			<DrawerContentScrollView {...props}>

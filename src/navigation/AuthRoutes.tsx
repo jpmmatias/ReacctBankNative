@@ -6,7 +6,11 @@ import AccountCreated from '../screens/AccountCreated';
 import PasswordRecovery from '../screens/PasswordRecovery';
 import PasswordRecovery2 from '../screens/PasswordRecovery2';
 import PasswordChanged from '../screens/PasswordChanged';
+import UserIndoScreen from '../screens/UserInfoScreen';
+import Depositar from '../screens/Depositar';
 import { createStackNavigator } from '@react-navigation/stack';
+import Planos from '../screens/Planos';
+import Transferir from '../screens/Transferir';
 const Stack = createStackNavigator<AuthParamList>();
 
 const AuthRoutes = () => {
@@ -23,6 +27,12 @@ const AuthRoutes = () => {
 			<Stack.Screen name='PasswordRecovery' component={PasswordRecovery} />
 			<Stack.Screen name='PasswordRecovery2' component={PasswordRecovery2} />
 			<Stack.Screen name='PasswordChanged' component={PasswordChanged} />
+			<Stack.Screen name='Planos' component={Planos} />
+			<Stack.Screen name='Transferir' component={Transferir} />
+			<Stack.Screen name='Depositar' component={Depositar} />
+
+		
+
 		</Stack.Navigator>
 	);
 };

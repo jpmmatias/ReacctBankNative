@@ -6,7 +6,8 @@ import { AppTabNavProps } from '../types';
 import { StyleSheet, Image, Dimensions, TextInput } from 'react-native';
 
 const { width, height } = Dimensions.get('window');
-const Transferir = ({ navigation, route }: AppTabNavProps<'Transferir'>) => {
+const Depositar = ({ navigation, route }: AppTabNavProps<'Depositar'>) => {
+
 	navigation.setOptions({ tabBarVisible: false });
 	const handleSubmit = () => { };
 	const inputRef = useRef<TextInput>(null);
@@ -23,14 +24,14 @@ const Transferir = ({ navigation, route }: AppTabNavProps<'Transferir'>) => {
 						style={styles.account}
 						source={require('../assets/images/account.png')}
 					/>
-					<Text style={styles.transfer}>Transferências</Text>
+					<Text style={styles.depos}>Depósitos</Text>
 					<View style={styles.form}>
 						<TextInput
 							placeholder="Destinatário"
 							style={[styles.input, { marginBottom: 20 }]}
 						></TextInput>
 						<TextInput
-							placeholder="Plano de conta a debitar"
+							placeholder="Plano de conta"
 							style={[styles.input, { marginBottom: 20 }]}
 						></TextInput>
 						<TextInput
@@ -38,11 +39,11 @@ const Transferir = ({ navigation, route }: AppTabNavProps<'Transferir'>) => {
 							style={[styles.input, { marginBottom: 20 }]}
 						></TextInput>
 						<TextInput
-							placeholder="Valor da transferência"
+							placeholder="Valor de depósito"
 							style={[styles.input, { marginBottom: 70 }]}
 						></TextInput>
 						<Button
-							text='Realizar Transferência'
+							text='Realizar Depósitos'
 							handleClick={handleSubmit}
 							textColor='#fff'
 							backgroundColor='#68DE5A'
@@ -96,7 +97,7 @@ const styles = StyleSheet.create({
 		lineHeight: 24.61,
 		marginBottom: 60,
 	},
-	transfer:{
+	depos:{
 		marginTop:-20,
 		textAlign: 'center',
 		marginBottom: 60,
@@ -116,4 +117,4 @@ const styles = StyleSheet.create({
 	},
 });
 
-export default Transferir;
+export default Depositar;

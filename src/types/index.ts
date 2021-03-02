@@ -14,6 +14,9 @@ export type AuthParamList = {
 	PasswordRecovery: undefined;
 	PasswordRecovery2: { temporaryPass: string };
 	PasswordChanged: undefined;
+	Transferir: undefined;
+	Depositar: undefined;
+	Planos: undefined;
 };
 
 export type AppParamList = {
@@ -65,4 +68,16 @@ export interface ITab {
 export interface IHeader {
 	name: string;
 	onPress: () => void;
+}
+
+export interface IPlanoconta {
+	id: number;
+	descricao: string;
+	login: string;
+	tipoMovimento: string;
+	padrao: boolean;
+}
+
+export interface IListData {
+	key: string;
 }
