@@ -1,22 +1,45 @@
 import React, { useRef } from 'react';
-import { View, Text, } from 'react-native';
+import { View, Text } from 'react-native';
 import Card from '../components/Card';
 import Button from '../components/Button';
 import { AppTabNavProps } from '../types';
-import { StyleSheet, Image, Dimensions, TextInput } from 'react-native';
+import {
+	StyleSheet,
+	Image,
+	Dimensions,
+	TextInput,
+	TouchableOpacity,
+} from 'react-native';
+
+import { Ionicons } from '@expo/vector-icons';
 
 const { width, height } = Dimensions.get('window');
+
 const Transferir = ({ navigation, route }: AppTabNavProps<'Transferir'>) => {
 	navigation.setOptions({ tabBarVisible: false });
-	const handleSubmit = () => { };
+	const handleSubmit = () => {};
 	const inputRef = useRef<TextInput>(null);
 	return (
-		
 		<View style={styles.container}>
 			<Image
 				style={styles.logo}
 				source={require('../assets/images/logo-gamaacademy.png')}
 			/>
+			<View
+				style={{
+					width: width,
+					paddingLeft: (width * 10) / 100,
+					marginBottom: 10,
+				}}
+			>
+				<TouchableOpacity
+					onPress={() => {
+						navigation.goBack();
+					}}
+				>
+					<Ionicons name='arrow-back' color='#fff' size={22} />
+				</TouchableOpacity>
+			</View>
 			<Card>
 				<View style={styles.cardBody}>
 					<Image
@@ -26,19 +49,19 @@ const Transferir = ({ navigation, route }: AppTabNavProps<'Transferir'>) => {
 					<Text style={styles.transfer}>Transferências</Text>
 					<View style={styles.form}>
 						<TextInput
-							placeholder="Destinatário"
+							placeholder='Destinatário'
 							style={[styles.input, { marginBottom: 20 }]}
 						></TextInput>
 						<TextInput
-							placeholder="Plano de conta a debitar"
+							placeholder='Plano de conta a debitar'
 							style={[styles.input, { marginBottom: 20 }]}
 						></TextInput>
 						<TextInput
-							placeholder="Tipo de transação"
+							placeholder='Tipo de transação'
 							style={[styles.input, { marginBottom: 20 }]}
 						></TextInput>
 						<TextInput
-							placeholder="Valor da transferência"
+							placeholder='Valor da transferência'
 							style={[styles.input, { marginBottom: 70 }]}
 						></TextInput>
 						<Button
@@ -50,7 +73,6 @@ const Transferir = ({ navigation, route }: AppTabNavProps<'Transferir'>) => {
 							widthSize={265.64}
 							heightSize={56.97}
 							textWeight='600'
-							
 						/>
 					</View>
 				</View>
@@ -73,15 +95,12 @@ const styles = StyleSheet.create({
 		height: 55,
 		width: 249,
 		marginTop: 40,
-		marginBottom: 60,
+		marginBottom: 40,
 	},
 	account: {
 		width: 30,
-		height:30,
-		marginBottom: -5
-		
-
-
+		height: 30,
+		marginBottom: -5,
 	},
 	cardBody: {
 		width: (width * 70) / 100,
@@ -96,11 +115,11 @@ const styles = StyleSheet.create({
 		lineHeight: 24.61,
 		marginBottom: 60,
 	},
-	transfer:{
-		marginTop:-20,
+	transfer: {
+		marginTop: -20,
 		textAlign: 'center',
 		marginBottom: 60,
-		fontSize: 21
+		fontSize: 21,
 	},
 	link: {
 		fontWeight: '500',
