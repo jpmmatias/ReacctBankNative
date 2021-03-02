@@ -43,7 +43,10 @@ const Login = ({ navigation, route }: AuthNavProps<'Login'>) => {
 		// 			text2: err.message,
 		// 		});
 		// 	});
+
 		navigation.navigate('Planos')
+		navigation.navigate("Transferir")
+
 	};
 
 	return (
@@ -72,7 +75,7 @@ const Login = ({ navigation, route }: AuthNavProps<'Login'>) => {
 								setUsername(text);
 							}}
 							blurOnSubmit={false}
-							style={[styles.input, { marginBottom: 79 }]}
+							style={[styles.input, { marginBottom: 45 }]}
 						></TextInput>
 						<TextInput
 							textContentType='password'
