@@ -5,6 +5,8 @@ import { AuthNavProps } from '../types';
 import like from '../assets/images/like.png';
 import { Center } from '../components/Center';
 const { width, height } = Dimensions.get('window');
+import Lottie from 'lottie-react-native'
+import okAnimation from '../utils/animations/lf30_editor_qp4y7c7z.json'
 
 const AccountCreated = ({
 	navigation,
@@ -17,7 +19,7 @@ const AccountCreated = ({
 	}, []);
 	return (
 		<Center>
-			<Image style={styles.like} source={like} />
+			<Lottie autoSize resizeMode="contain" source={okAnimation}  autoPlay loop/>
 			<Text style={styles.text}>Conta criada com sucesso!</Text>
 		</Center>
 	);
@@ -30,7 +32,7 @@ const styles = StyleSheet.create({
 		fontSize: 20,
 	},
 
-	like: {
+	animationImg: {
 		height: 162,
 		width: 162,
 		marginBottom: 30,

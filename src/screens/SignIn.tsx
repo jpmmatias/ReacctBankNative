@@ -66,7 +66,6 @@ const SignIn = ({ navigation, route }: AuthNavProps<'SignIn'>) => {
 					});
 			})
 			.catch((err: any) => {
-				alert(cpf);
 				Toast.show({
 					type: 'error',
 					position: 'top',
