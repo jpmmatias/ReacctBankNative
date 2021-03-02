@@ -1,8 +1,9 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import Card from '../components/Card';
 import Button from '../components/Button';
 import api from '../services/api';
 import Toast from 'react-native-toast-message';
+import { TextInputMask } from 'react-native-masked-text';
 
 import {
 	StyleSheet,
@@ -26,6 +27,7 @@ const SignIn = ({ navigation, route }: AuthNavProps<'SignIn'>) => {
 	const [password2, setPassword2] = useState('');
 
 	const inputRefs = {
+		cpfRef: useRef<TextInputMask | null>(null),
 		nameRef: useRef<TextInput>(null),
 		usernameRef: useRef<TextInput>(null),
 		password: useRef<TextInput>(null),
@@ -35,7 +37,7 @@ const SignIn = ({ navigation, route }: AuthNavProps<'SignIn'>) => {
 	const handleSubmit = () => {
 		UserSchema.validate(
 			{
-				cpf,
+				cpf: cpf,
 				name,
 				username,
 				password,
@@ -64,6 +66,7 @@ const SignIn = ({ navigation, route }: AuthNavProps<'SignIn'>) => {
 					});
 			})
 			.catch((err: any) => {
+				alert(cpf);
 				Toast.show({
 					type: 'error',
 					position: 'top',
@@ -85,23 +88,20 @@ const SignIn = ({ navigation, route }: AuthNavProps<'SignIn'>) => {
 						Peça sua conta e cartão de crédito do Gama Bank
 					</Text>
 					<View style={styles.form}>
-						<TextInput
+						<TextInputMask
 							placeholderTextColor='#878686'
 							placeholder='Digite seu CPF'
-							textContentType='postalCode'
+							type={'cpf'}
 							value={cpf}
-							onChangeText={(text) => {
-								setCpf(text);
+							textContentType='postalCode'
+							onChangeText={(value, rawText) => {
+								setCpf(value);
 							}}
-							onSubmitEditing={() => {
-								if (inputRefs.usernameRef.current) {
-									inputRefs.usernameRef.current.focus();
-								}
-							}}
-							keyboardType='numeric'
-							blurOnSubmit={false}
-							style={[styles.input, { marginBottom: 20 }]}
-						></TextInput>
+							keyboardType='number-pad'
+							returnKeyType='done'
+							style={styles.input}
+							ref={(ref) => (inputRefs.cpfRef.current = ref)}
+						/>
 						<TextInput
 							ref={inputRefs.usernameRef}
 							placeholderTextColor='#878686'
