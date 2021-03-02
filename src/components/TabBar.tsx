@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
 		position: 'absolute',
 		bottom: 0,
 		width,
-		height: '100px',
+		height: 100,
 		alignItems: 'center',
 		justifyContent: 'center',
 	},
@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
 		width,
 		borderTopStartRadius: 19,
 		borderTopEndRadius: 19,
-		height: '100px',
+		height: 100,
 		justifyContent: 'space-between',
 	},
 });

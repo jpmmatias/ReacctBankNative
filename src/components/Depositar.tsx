@@ -6,7 +6,7 @@ const Depositar = ({ navigation, route }: AppTabNavProps<'Depositar'>) => {
 	navigation.setOptions({ tabBarVisible: false });
 	return (
 		<Card>
-			<View style={{ width: '200px', height: '100px' }}>
+			<View style={{ width: 200, height: 100 }}>
 				<Button onPress={() => navigation.navigate('Home')} title='sair' />
 				<Text>Depositarrr</Text>
 			</View>
