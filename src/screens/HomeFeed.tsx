@@ -1,6 +1,6 @@
 import React from 'react';
 import Card from '../components/Card';
-import { StyleSheet, View, ScrollView, Dimensions } from 'react-native';
+import { StyleSheet, View, ScrollView, Dimensions, PixelRatio } from 'react-native';
 import { HomeDrawerNavProps } from '../types';
 import Header from '../components/Header';
 import CardSaldoConta from '../components/CardSaldoConta';
@@ -41,8 +41,8 @@ const styles = StyleSheet.create({
 		fontFamily: 'Roboto-Regular',
 	},
 	scrollWrapper: {
-		maxHeight: (height * 73) / 100,
-		paddingHorizontal: (width * 7) / 100,
+		maxHeight: PixelRatio.getPixelSizeForLayoutSize((height * 75) / 100),
+		paddingHorizontal: PixelRatio.getPixelSizeForLayoutSize((width * 1.5) / 100)
 	},
 });
 export default HomeFeed;
