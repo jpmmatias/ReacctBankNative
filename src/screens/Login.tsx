@@ -13,7 +13,6 @@ import {
 	TextInput,
 	TouchableWithoutFeedback,
 } from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { AuthNavProps } from '../types';
 const { width, height } = Dimensions.get('window');
 
@@ -78,6 +77,9 @@ const Login = ({ navigation, route }: AuthNavProps<'Login'>) => {
 							style={[styles.input, { marginBottom: 45 }]}
 						></TextInput>
 						<TextInput
+							onSubmitEditing={() => {
+								handleSubmit();
+							}}
 							textContentType='password'
 							secureTextEntry={true}
 							value={password}
