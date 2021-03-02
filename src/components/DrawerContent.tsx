@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 
 import {
 	View,
@@ -9,6 +9,12 @@ import {
 } from 'react-native';
 
 import { FontAwesome5, AntDesign, Ionicons } from '@expo/vector-icons';
+import {
+	DrawerContentComponentProps,
+	DrawerContentScrollView,
+	DrawerItem,
+} from '@react-navigation/drawer';
+import { AuthContext } from '../utils/auth/AuthProvider';
 const { width, height } = Dimensions.get('screen');
 
 const styles = StyleSheet.create({
@@ -52,10 +58,8 @@ const styles = StyleSheet.create({
 });
 
 export function DrawerContent(props: DrawerContentComponentProps) {
-	const dispatch = useDispatch();
-	const store = useStore();
+	const { logout } = useContext(AuthContext);
 	return (
-
 		<View style={styles.container}>
 			<DrawerContentScrollView {...props}>
 				{/* Header */}
@@ -89,29 +93,23 @@ export function DrawerContent(props: DrawerContentComponentProps) {
 					<Text style={styles.drawerItem_label}>Você tem</Text>
 					<Text style={styles.drawerItem_value}>4 planos de conta</Text>
 				</View>
-				<TouchableOpacity style={styles.logoutBtn}>
+				<DrawerItem
+					label='Help'
+					onPress={() => {
+						logout();
+					}}
+				/>
+				<TouchableOpacity
+					onPress={() => {
+						logout();
+						props.navigation.goBack();
+					}}
+					style={styles.logoutBtn}
+				>
 					<Text style={styles.drawerItem_label}>Sair</Text>
 					<Ionicons name='exit-outline' size={24} color='#8C52E5' />
 				</TouchableOpacity>
 			</DrawerContentScrollView>
-
-		<View
-			style={{
-				flex: 1,
-				justifyContent: 'center',
-			}}
-		>
-			<Text>Dados do Usuárioo</Text>
-			<Button
-				title='Logout'
-				onPress={() => {
-					AsyncStorage.clear();
-					dispatch(Logout());
-					console.log(store.getState());
-					props.navigation.closeDrawer();
-				}}
-			/>
-
 		</View>
 	);
 }
