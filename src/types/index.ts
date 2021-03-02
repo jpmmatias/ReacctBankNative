@@ -66,3 +66,15 @@ export interface IHeader {
 	name: string;
 	onPress: () => void;
 }
+
+export interface IPlanoconta{
+	id:number,
+	descricao:string,
+	login:string,
+	tipoMovimento:string,
+	padrao:boolean
+}
+
+export interface IListData{
+	key:string
+}

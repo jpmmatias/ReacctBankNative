@@ -18,6 +18,7 @@ import { AuthNavProps } from '../types';
 const { width, height } = Dimensions.get('window');
 import { LoginUser } from '../store/modules/user/action';
 import { useStore } from 'react-redux';
+
 const Login = ({ navigation, route }: AuthNavProps<'Login'>) => {
 	const [username, setUsername] = useState('');
 	const [password, setPassword] = useState('');
@@ -25,23 +26,24 @@ const Login = ({ navigation, route }: AuthNavProps<'Login'>) => {
 	const dispatch = useDispatch();
 	const store = useStore();
 	const handleSubmit = () => {
-		api
-			.post(`login`, { senha: password, usuario: username })
-			.then((res) => {
-				AsyncStorage.setItem('@tokenApp', res.data.token);
-				dispatch(LoginUser(res.data));
-				console.log(store.getState());
-				console.log('loginn');
-			})
-			.catch((err) => {
-				console.log(err);
-				Toast.show({
-					type: 'error',
-					position: 'top',
-					text1: 'Oops',
-					text2: err.message,
-				});
-			});
+		// api
+		// 	.post(`login`, { senha: password, usuario: username })
+		// 	.then((res) => {
+		// 		AsyncStorage.setItem('@tokenApp', res.data.token);
+		// 		dispatch(LoginUser(res.data));
+		// 		console.log(store.getState());
+		// 		console.log('loginn');
+		// 	})
+		// 	.catch((err) => {
+		// 		console.log(err);
+		// 		Toast.show({
+		// 			type: 'error',
+		// 			position: 'top',
+		// 			text1: 'Oops',
+		// 			text2: err.message,
+		// 		});
+		// 	});
+		navigation.navigate('Planos')
 	};
 
 	return (
