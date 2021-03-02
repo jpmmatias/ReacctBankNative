@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
 	},
 	cardBody_planos_divisor: {
 		width: (width * 70) / 100,
-		height: '0.4px',
+		height: 0.4,
 		backgroundColor: '#878686',
 		marginHorizontal: 'auto',
 		marginVertical: 24,
