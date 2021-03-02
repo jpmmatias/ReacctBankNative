@@ -13,9 +13,19 @@ const Header = ({ name, onPress }: IHeader) => {
 	return (
 		<View style={styles.container}>
 			<Text style={styles.text}>Olá {name}</Text>
-			<TouchableOpacity onPress={onPress}>
-				<FontAwesome5 name='user-circle' size={24} color='white' />
-			</TouchableOpacity>
+			<View style={styles.icons}>
+				<TouchableOpacity onPress={onPress}>
+					<FontAwesome5
+						style={{ marginRight: (width * 5) / 100 }}
+						name='home'
+						size={24}
+						color='white'
+					/>
+				</TouchableOpacity>
+				<TouchableOpacity onPress={onPress}>
+					<FontAwesome5 name='user-circle' size={24} color='white' />
+				</TouchableOpacity>
+			</View>
 		</View>
 	);
 };
@@ -35,5 +45,8 @@ const styles = StyleSheet.create({
 		fontFamily: 'Roboto-Medium',
 		fontSize: 22,
 		color: '#fff',
+	},
+	icons: {
+		flexDirection: 'row',
 	},
 });
