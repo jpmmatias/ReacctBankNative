@@ -18,6 +18,7 @@ import { AuthNavProps } from '../types';
 const { width, height } = Dimensions.get('window');
 import { LoginUser } from '../store/modules/user/action';
 import { useStore } from 'react-redux';
+
 const Login = ({ navigation, route }: AuthNavProps<'Login'>) => {
 	const [username, setUsername] = useState('');
 	const [password, setPassword] = useState('');
@@ -43,6 +44,7 @@ const Login = ({ navigation, route }: AuthNavProps<'Login'>) => {
 		// 		});
 		// 	});
 
+		navigation.navigate('Planos')
 		navigation.navigate("Transferir")
 
 	};
