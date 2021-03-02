@@ -14,6 +14,8 @@ export type AuthParamList = {
 	PasswordRecovery: undefined;
 	PasswordRecovery2: { temporaryPass: string };
 	PasswordChanged: undefined;
+	Transferir: undefined;
+	Depositar: undefined;
 };
 
 export type AppParamList = {
