@@ -23,6 +23,7 @@ const AuthRoutes = () => {
 			<Stack.Screen name='PasswordRecovery' component={PasswordRecovery} />
 			<Stack.Screen name='PasswordRecovery2' component={PasswordRecovery2} />
 			<Stack.Screen name='PasswordChanged' component={PasswordChanged} />
+		
 		</Stack.Navigator>
 	);
 };

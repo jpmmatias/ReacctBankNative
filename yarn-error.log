@@ -1,29 +1,20 @@
 Arguments: 
-  C:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js add expo-font@~8.4.0 @expo-google-fonts/roboto
+  C:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js add expo-app-loading
 
 PATH: 
-  C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin;C:\Users\User\bin;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0;C:\WINDOWS\System32\OpenSSH;C:\Program Files\Git\cmd;C:\Program Files (x86)\Yarn\bin;C:\Program Files\dotnet;C:\Program Files\Docker\Docker\resources\bin;C:\ProgramData\DockerDesktop\version-bin;C:\xampp\php;C:\ProgramData\ComposerSetup\bin;C:\Program Files\nodejs;C:\Program Files\erl10.3\bin;C:\Program Files (x86)\Elixir\bin;C:\WINDOWS\system32\config\systemprofile\.mix\escripts;C:\RailsInstaller\Git\cmd;C:\RailsInstaller\Ruby2.3.3\bin;C:\Ruby27-x64\bin;C:\Users\User\AppData\Local\Programs\Python\Python39\Scripts;C:\Users\User\AppData\Local\Programs\Python\Python39;C:\Program Files\MySQL\MySQL Shell 8.0\bin;C:\Users\User\AppData\Local\Microsoft\WindowsApps;C:\Users\User\AppData\Local\Programs\Microsoft VS Code\bin;C:\Program Files\heroku\bin;C:\Users\User\AppData\Local\Yarn\bin;C:\Users\User\.deno\bin;C:\Users\User\.dotnet\tools;C:\Users\User\AppData\Local\hyper\app-3.0.2\resources\bin;C:\Users\User\AppData\Roaming\Composer\vendor\bin;C:\Users\User\AppData\Roaming\npm;C:\Users\User\AppData\Local\Microsoft\WindowsApps
+  C:\Users\bruno\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\local\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin;C:\Users\bruno\bin;C:\Python27;C:\Python27\Scripts;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0;C:\Windows\System32\OpenSSH;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;C:\ProgramData\chocolatey\bin;C:\Program Files\Git\cmd;C:\Program Files\nodejs;C:\Program Files (x86)\Yarn\bin;C:\Ruby27-x64\bin;C:\Users\bruno\AppData\Local\Microsoft\WindowsApps;C:\Users\bruno\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\bruno\AppData\Roaming\npm;C:\Users\bruno\AppData\Local\Yarn\bin;C:\Program Files\Git\usr\bin\vendor_perl;C:\Program Files\Git\usr\bin\core_perl
 
 Yarn version: 
   1.22.5
 
 Node version: 
-  14.15.4
+  12.18.3
 
 Platform: 
   win32 x64
 
 Trace: 
-  Error: https://registry.yarnpkg.com/core-js/-/core-js-2.6.12.tgz: ESOCKETTIMEDOUT
-      at ClientRequest.<anonymous> (C:\Program Files (x86)\Yarn\lib\cli.js:141376:19)
-      at Object.onceWrapper (events.js:421:28)
-      at ClientRequest.emit (events.js:315:20)
-      at TLSSocket.emitRequestTimeout (_http_client.js:784:9)
-      at Object.onceWrapper (events.js:421:28)
-      at TLSSocket.emit (events.js:327:22)
-      at TLSSocket.Socket._onTimeout (net.js:483:8)
-      at listOnTimeout (internal/timers.js:554:17)
-      at processTimers (internal/timers.js:497:7)
+  Error: EPERM: operation not permitted, unlink 'C:\Users\bruno\ReacctBankNative\node_modules\@babel\plugin-external-helpers\lib'
 
 npm manifest: 
   {
@@ -36,6 +27,7 @@ npm manifest:
       "eject": "expo eject"
     },
     "dependencies": {
+      "@expo/vector-icons": "^12.0.0",
       "@react-native-async-storage/async-storage": "^1.14.1",
       "@react-native-community/masked-view": "0.1.10",
       "@react-navigation/bottom-tabs": "^5.11.8",
@@ -44,6 +36,7 @@ npm manifest:
       "@react-navigation/stack": "^5.14.3",
       "axios": "^0.21.1",
       "expo": "~40.0.0",
+      "expo-font": "~8.4.0",
       "expo-status-bar": "~1.0.3",
       "react": "16.13.1",
       "react-dom": "16.13.1",
