@@ -1,19 +1,20 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { ActivityIndicator } from 'react-native';
 import { Center } from '../components/Center';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import AppTabs from './AppTabs';
 import Transferir from '../screens/Transferir';
 import AuthRoutes from './AuthRoutes';
 import { useFonts } from 'expo-font';
 import { createStackNavigator } from '@react-navigation/stack';
 import Depositar from '../components/Depositar';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { AuthContext } from '../utils/auth/AuthProvider';
 
 const RootStack = createStackNavigator();
 
 const RootStackScreen = () => {
+	const { logged, login } = useContext(AuthContext);
 	const [loading, setLoading] = useState(true);
-	const [logged, setlogged] = useState<any>('');
 	let [fontsLoaded] = useFonts({
 		'Roboto-Regular': require('../assets/fonts/Roboto-Regular.ttf'),
 		'Roboto-Bold': require('../assets/fonts/Roboto-Bold.ttf'),
@@ -23,7 +24,7 @@ const RootStackScreen = () => {
 	useEffect(() => {
 		let storageToken = async () => {
 			try {
-				return await AsyncStorage.getItem('@tokenApp');
+				return await AsyncStorage.getItem('logged');
 			} catch (err) {
 				console.log(err);
 			}
@@ -31,11 +32,12 @@ const RootStackScreen = () => {
 
 		storageToken()
 			.then((value) => {
-				setlogged(value);
+				if (value === 'true') {
+					login();
+				}
 				setLoading(false);
 			})
 			.catch((err) => {
-				setlogged(err);
 				setLoading(false);
 			});
 	}, []);

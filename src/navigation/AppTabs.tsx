@@ -1,18 +1,24 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { AppParamList } from '../types';
 import HomeDrawer from './HomeDrawer';
 import Planos from '../screens/Planos';
 import Lancamentos from '../screens/Lancamentos';
-import Transferir from '../screens/Transferir';
 import { Center } from '../components/Center';
 import LancamentosDrawer from './LancamentosDrawer';
 import TabBar from '../components/TabBar';
+import { AuthContext } from '../utils/auth/AuthProvider';
+import { useNavigation } from '@react-navigation/native';
 
 const Tabs = createBottomTabNavigator<AppParamList>();
 
 const TransferirPlaceholder = () => <Center></Center>;
 const AppTabs = () => {
+	const navigation = useNavigation();
+	const { logged } = useContext(AuthContext);
+	useEffect(() => {
+		navigation.goBack();
+	}, [logged]);
 	return (
 		<Tabs.Navigator
 			tabBar={(props) => {

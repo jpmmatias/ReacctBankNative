@@ -16,6 +16,7 @@ export type AuthParamList = {
 	PasswordChanged: undefined;
 	Transferir: undefined;
 	Depositar: undefined;
+	Planos: undefined;
 };
 
 export type AppParamList = {
@@ -69,14 +70,14 @@ export interface IHeader {
 	onPress: () => void;
 }
 
-export interface IPlanoconta{
-	id:number,
-	descricao:string,
-	login:string,
-	tipoMovimento:string,
-	padrao:boolean
+export interface IPlanoconta {
+	id: number;
+	descricao: string;
+	login: string;
+	tipoMovimento: string;
+	padrao: boolean;
 }
 
-export interface IListData{
-	key:string
+export interface IListData {
+	key: string;
 }
