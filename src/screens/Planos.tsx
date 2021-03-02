@@ -83,11 +83,7 @@ const Planos = () => {
 	return (
 		<Center>
 			<Card>
-				<Text>{novoPlano.descricao}</Text>
-				<Text>{novoPlano.id}</Text>
-				<Text>{novoPlano.login}</Text>
-				<Text>{novoPlano.padrao}</Text>
-				<Text>{novoPlano.tipoMovimento}</Text>
+				<Text>Planos de Contas</Text>
 					<TextInput		
 						placeholderTextColor='#878686'
 						placeholder='Nome'
