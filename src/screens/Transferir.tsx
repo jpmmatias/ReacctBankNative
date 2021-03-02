@@ -11,12 +11,7 @@ const Transferir = ({ navigation, route }: AppTabNavProps<'Transferir'>) => {
 	const handleSubmit = () => { };
 	const inputRef = useRef<TextInput>(null);
 	return (
-		//<Card>
-		//<View style={{ width: '200px', height: '100px' }}>
-		//<Button onPress={() => navigation.navigate('Home')} title='sair' />
-		//<Text>Transferir</Text>
-		//</View>
-		//</Card>
+		
 		<View style={styles.container}>
 			<Image
 				style={styles.logo}
@@ -24,19 +19,27 @@ const Transferir = ({ navigation, route }: AppTabNavProps<'Transferir'>) => {
 			/>
 			<Card>
 				<View style={styles.cardBody}>
-					<Text style={styles.title}>Transferências</Text>
+					<Image
+						style={styles.account}
+						source={require('../assets/images/account.png')}
+					/>
+					<Text style={styles.transfer}>Transferências</Text>
 					<View style={styles.form}>
 						<TextInput
-
+							placeholder="Destinatário"
+							style={[styles.input, { marginBottom: 20 }]}
 						></TextInput>
 						<TextInput
-
+							placeholder="Plano de conta a debitar"
+							style={[styles.input, { marginBottom: 20 }]}
 						></TextInput>
 						<TextInput
-
+							placeholder="Tipo de transação"
+							style={[styles.input, { marginBottom: 20 }]}
 						></TextInput>
 						<TextInput
-
+							placeholder="Valor da transferência"
+							style={[styles.input, { marginBottom: 70 }]}
 						></TextInput>
 						<Button
 							text='Realizar Transferência'
@@ -47,6 +50,7 @@ const Transferir = ({ navigation, route }: AppTabNavProps<'Transferir'>) => {
 							widthSize={265.64}
 							heightSize={56.97}
 							textWeight='600'
+							
 						/>
 					</View>
 				</View>
@@ -71,6 +75,14 @@ const styles = StyleSheet.create({
 		marginTop: 40,
 		marginBottom: 60,
 	},
+	account: {
+		width: 30,
+		height:30,
+		marginBottom: -5
+		
+
+
+	},
 	cardBody: {
 		width: (width * 70) / 100,
 		height: (height * 66) / 100,
@@ -83,6 +95,12 @@ const styles = StyleSheet.create({
 		color: '#1d1d1d',
 		lineHeight: 24.61,
 		marginBottom: 60,
+	},
+	transfer:{
+		marginTop:-20,
+		textAlign: 'center',
+		marginBottom: 60,
+		fontSize: 21
 	},
 	link: {
 		fontWeight: '500',
