@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, Dimensions, PixelRatio } from 'react-native';
 import Card from './Card';
 import { FontAwesome5 } from '@expo/vector-icons';
 import Lancamento from './Lancamento';
@@ -17,8 +17,8 @@ const CardUltimosLançamentos = ({ lancamentos }: ICardUltimosLançamentos) => {
 				<Text style={styles.cardTitleText}>Últimos lancamentos</Text>
 			</View>
 			{lancamentos &&
-				lancamentos.map((lancamento: any) => {
-					return <Lancamento data={lancamento.data} valor={lancamento.valor} />;
+				lancamentos.map((lancamento: any, index: number) => {
+					return <Lancamento key={index} data={lancamento.data} valor={lancamento.valor} />;
 				})}
 		</Card>
 	);
@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
 	cardTitleWrapper: {
 		flexDirection: 'row',
 		alignItems: 'center',
-		height: 'auto',
+		height: PixelRatio.getPixelSizeForLayoutSize(12),
 		marginBottom: 14,
 	},
 	cardTitleText: {
@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
 	},
 	cardBody_planos_divisor: {
 		width: (width * 70) / 100,
-		height: 0.4,
+		height: PixelRatio.getPixelSizeForLayoutSize(0.4),
 		backgroundColor: '#878686',
 		marginHorizontal: 'auto',
 		marginVertical: 24,

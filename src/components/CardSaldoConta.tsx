@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { PixelRatio, StyleSheet, Text, View } from 'react-native';
 import Card from './Card';
 import { FontAwesome5 } from '@expo/vector-icons';
 
@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
 	cardTitleWrapper: {
 		flexDirection: 'row',
 		alignItems: 'center',
-		height: 'auto',
+		height: PixelRatio.getPixelSizeForLayoutSize(15),
 		marginBottom: 14,
 	},
 	cardTitleText: {

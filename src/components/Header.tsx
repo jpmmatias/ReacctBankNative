@@ -5,6 +5,7 @@ import {
 	View,
 	TouchableOpacity,
 	Dimensions,
+  PixelRatio,
 } from 'react-native';
 import { FontAwesome5 } from '@expo/vector-icons';
 const { width, height } = Dimensions.get('screen');
@@ -24,11 +25,11 @@ export default Header;
 
 const styles = StyleSheet.create({
 	container: {
-		width,
+		width: PixelRatio.getPixelSizeForLayoutSize(width * 0.35),
 		flexDirection: 'row',
 		justifyContent: 'space-between',
 		alignItems: 'center',
-		marginVertical: (height * 5) / 100,
+		marginVertical: PixelRatio.getPixelSizeForLayoutSize((height * 2) / 100),
 		paddingHorizontal: (width * 7) / 100,
 	},
 	text: {

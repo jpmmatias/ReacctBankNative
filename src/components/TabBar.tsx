@@ -4,7 +4,7 @@ import {
 } from '@react-navigation/bottom-tabs';
 import { useRoute } from '@react-navigation/native';
 import React, { useState } from 'react';
-import { View, StyleSheet, Dimensions } from 'react-native';
+import { View, StyleSheet, Dimensions, PixelRatio } from 'react-native';
 import Tab from './Tab';
 
 const { width } = Dimensions.get('screen');
@@ -75,9 +75,9 @@ const styles = StyleSheet.create({
 		position: 'absolute',
 		bottom: 0,
 		width,
-		height: 100,
+		height: PixelRatio.getPixelSizeForLayoutSize(30),
 		alignItems: 'center',
-		justifyContent: 'center',
+		justifyContent: 'center'
 	},
 	container: {
 		backgroundColor: '#68DE5A',
