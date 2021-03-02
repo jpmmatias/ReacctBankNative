@@ -2,7 +2,6 @@ import {
 	BottomTabBarProps,
 	BottomTabBarOptions,
 } from '@react-navigation/bottom-tabs';
-import { useRoute } from '@react-navigation/native';
 import React, { useState } from 'react';
 import { View, StyleSheet, Dimensions } from 'react-native';
 import Tab from './Tab';
@@ -34,9 +33,6 @@ const TabBar = ({
 
 	const getIconName = (tabName: string) => {
 		switch (tabName) {
-			case 'Home':
-				return 'home';
-
 			case 'Depositar':
 				return 'cash-plus';
 
@@ -56,15 +52,19 @@ const TabBar = ({
 	return (
 		<View style={styles.wrapper}>
 			<View style={styles.container}>
-				{routes.map((route, index) => (
-					<Tab
-						tab={route}
-						icon={getIconName(route.name)}
-						onPress={() => handlePress(route.name, index)}
-						color={renderColor(route.name)}
-						key={route.key}
-					/>
-				))}
+				{routes.map((route, index) => {
+					if (route.name !== 'Home') {
+						return (
+							<Tab
+								tab={route}
+								icon={getIconName(route.name)}
+								onPress={() => handlePress(route.name, index)}
+								color={renderColor(route.name)}
+								key={route.key}
+							/>
+						);
+					}
+				})}
 			</View>
 		</View>
 	);
@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
 		width,
 		borderTopStartRadius: 19,
 		borderTopEndRadius: 19,
-		height: 100,
+		height: 85,
 		justifyContent: 'space-between',
 	},
 });
