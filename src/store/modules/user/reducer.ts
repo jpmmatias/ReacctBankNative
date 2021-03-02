@@ -1,5 +1,6 @@
 import { Reducer } from 'redux';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {IUser} from '../../../types';
 
 let storageToken = async () => {
 	try {
@@ -9,8 +10,21 @@ let storageToken = async () => {
 	}
 };
 
+interface IState {
+	user:IUser,
+	logged:Function,
+}
+
 const INITIAL_STATE = {
-	user: {},
+	user:{
+		id:0,
+		cpf:'',
+		login:'',
+		nome:'',
+		redefinirSenha:false,
+		senha:'',
+		senhaTemporaria:'',
+	},
 	logged: async () => {
 		await storageToken().then((value) => {
 			return value;
@@ -18,7 +32,7 @@ const INITIAL_STATE = {
 	},
 };
 
-const userReducer: Reducer<any> = (state = INITIAL_STATE, action) => {
+const userReducer: Reducer<IState | any> = (state = INITIAL_STATE, action) => {
 	switch (action.type) {
 		case 'LOGIN':
 			const { user } = action.payload;
