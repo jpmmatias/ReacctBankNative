@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Button } from 'react-native';
+import { View, Text, Button, StyleSheet } from 'react-native';
 import Card from '../components/Card';
 import { AppTabNavProps } from '../types';
 const Depositar = ({ navigation, route }: AppTabNavProps<'Depositar'>) => {
@@ -7,11 +7,28 @@ const Depositar = ({ navigation, route }: AppTabNavProps<'Depositar'>) => {
 	return (
 		<Card>
 			<View style={{ width: 200, height: 100 }}>
+        <View style={depositHeader}>
+          <Text>Depósitos</Text>
+        </View>
+        <View style={styles.depositContentWrapper}>
+          <Text>
+            Depósitos
+          </Text>
+        </View>
 				<Button onPress={() => navigation.navigate('Home')} title='sair' />
-				<Text>Depositarrr</Text>
 			</View>
 		</Card>
 	);
 };
+
+const styles = StyleSheet.create({
+  depositHeader: {
+
+  },
+  depositContentWrapper: {
+    display: 'flex',
+    
+  }
+})
 
 export default Depositar;
