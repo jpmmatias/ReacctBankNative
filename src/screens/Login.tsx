@@ -4,6 +4,9 @@ import Button from '../components/Button';
 import api from '../services/api';
 import { useDispatch } from 'react-redux';
 import Toast from 'react-native-toast-message';
+//@ts-ignore
+import styled from 'styled-components/native';
+
 import {
 	StyleSheet,
 	Text,
@@ -122,6 +125,13 @@ const Login = ({ navigation, route }: AuthNavProps<'Login'>) => {
 		</View>
 	);
 };
+
+const Container = styled.View`
+	flex: 1;
+	background-color: '#8C52E5';
+	align-items: 'center';
+	font-family: 'Roboto-Regular';
+`;
 
 const styles = StyleSheet.create({
 	container: {

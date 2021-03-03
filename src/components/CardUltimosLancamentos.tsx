@@ -18,7 +18,13 @@ const CardUltimosLançamentos = ({ lancamentos }: ICardUltimosLançamentos) => {
 			</View>
 			{lancamentos &&
 				lancamentos.map((lancamento: any) => {
-					return <Lancamento data={lancamento.data} valor={lancamento.valor} />;
+					return (
+						<Lancamento
+							key={lancamento.data * Math.random()}
+							data={lancamento.data}
+							valor={lancamento.valor}
+						/>
+					);
 				})}
 		</Card>
 	);

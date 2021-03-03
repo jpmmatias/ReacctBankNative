@@ -11,7 +11,6 @@ import { FontAwesome5, AntDesign, Ionicons } from '@expo/vector-icons';
 import {
 	DrawerContentComponentProps,
 	DrawerContentScrollView,
-	DrawerItem,
 } from '@react-navigation/drawer';
 import { AuthContext } from '../utils/auth/AuthProvider';
 const { width, height } = Dimensions.get('screen');
@@ -56,7 +55,7 @@ const styles = StyleSheet.create({
 	},
 });
 
-export function DrawerContent(props: DrawerContentComponentProps) {
+export function DrawerContent(props: any) {
 	const { logout } = useContext(AuthContext);
 
 	return (
@@ -93,16 +92,11 @@ export function DrawerContent(props: DrawerContentComponentProps) {
 					<Text style={styles.drawerItem_label}>Você tem</Text>
 					<Text style={styles.drawerItem_value}>4 planos de conta</Text>
 				</View>
-				<DrawerItem
-					label='Help'
-					onPress={() => {
-						logout();
-					}}
-				/>
+
 				<TouchableOpacity
 					onPress={() => {
 						logout();
-						props.navigation.goBack();
+						props.navigation.navigate('Login');
 					}}
 					style={styles.logoutBtn}
 				>
