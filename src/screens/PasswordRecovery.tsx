@@ -13,7 +13,6 @@ import {
 	ScrollView,
 	TouchableWithoutFeedback,
 } from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { AuthNavProps } from '../types';
 const { width, height } = Dimensions.get('window');
 
