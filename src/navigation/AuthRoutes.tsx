@@ -6,10 +6,7 @@ import AccountCreated from '../screens/AccountCreated';
 import PasswordRecovery from '../screens/PasswordRecovery';
 import PasswordRecovery2 from '../screens/PasswordRecovery2';
 import PasswordChanged from '../screens/PasswordChanged';
-import UserIndoScreen from '../screens/UserInfoScreen';
 import { createStackNavigator } from '@react-navigation/stack';
-import Planos from '../screens/Planos';
-import Transferir from '../screens/Transferir';
 const Stack = createStackNavigator<AuthParamList>();
 
 const AuthRoutes = () => {

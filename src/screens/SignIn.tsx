@@ -4,13 +4,12 @@ import Button from '../components/Button';
 import api from '../services/api';
 import Toast from 'react-native-toast-message';
 import { TextInputMask } from 'react-native-masked-text';
+//@ts-ignore
+import styled from 'styled-components/native';
 
 import {
 	StyleSheet,
-	Text,
-	View,
 	ScrollView,
-	Image,
 	Dimensions,
 	TextInput,
 	TouchableWithoutFeedback,
@@ -19,6 +18,51 @@ import { AuthNavProps } from '../types';
 import { UserSchema } from '../utils/validations/UserValidation';
 
 const { width, height } = Dimensions.get('window');
+
+const Container = styled.View`
+	font-family: 'Roboto-Regular';
+	flex: 1;
+	background-color: #8c52e5;
+	align-items: center;
+`;
+const Link = styled.Text`
+	font-weight: 500;
+	font-size: 13px;
+	margin-bottom: 20px;
+	color: #8c52e5;
+	text-align: center;
+`;
+const Logo = styled.Image`
+	height: 55px;
+	width: 249px;
+	margin-top: 40px;
+	margin-bottom: 60px;
+`;
+
+const CardBody = styled.View`
+	width: ${(width * 70) / 100};
+	height: ${(height * 70) / 100};
+`;
+
+const Input = styled.TextInput`
+	padding: 5px;
+	border-bottom-width: 1;
+	border-bottom-color: #878686;
+	margin-bottom: 20px;
+`;
+
+const Form = styled.View`
+	margin-bottom: 37px;
+`;
+
+const Title = styled.Text`
+	margin-top: 5px;
+	font-size: 21px;
+	font-weight: 500;
+	color: #1d1d1d;
+	line-height: 24.61px;
+	margin-bottom: 36px;
+`;
 
 const SignIn = ({ navigation, route }: AuthNavProps<'SignIn'>) => {
 	const [cpf, setCpf] = useState('');
@@ -78,18 +122,13 @@ const SignIn = ({ navigation, route }: AuthNavProps<'SignIn'>) => {
 	};
 
 	return (
-		<View style={styles.container}>
-			<Image
-				style={styles.logo}
-				source={require('../assets/images/logo-gamaacademy.png')}
-			/>
+		<Container>
+			<Logo source={require('../assets/images/logo-gamaacademy.png')} />
 			<ScrollView>
 				<Card>
-					<View style={styles.cardBody}>
-						<Text style={styles.title}>
-							Peça sua conta e cartão de crédito do Gama Bank
-						</Text>
-						<View style={styles.form}>
+					<CardBody>
+						<Title>Peça sua conta e cartão de crédito do Gama Bank</Title>
+						<Form>
 							<TextInputMask
 								placeholderTextColor='#878686'
 								placeholder='Digite seu CPF'
@@ -101,10 +140,15 @@ const SignIn = ({ navigation, route }: AuthNavProps<'SignIn'>) => {
 								}}
 								keyboardType='number-pad'
 								returnKeyType='done'
-								style={styles.input}
+								style={{
+									padding: 5,
+									borderBottomWidth: 1,
+									borderBottomColor: '#878686',
+									marginBottom: 20,
+								}}
 								ref={(ref) => (inputRefs.cpfRef.current = ref)}
 							/>
-							<TextInput
+							<Input
 								ref={inputRefs.usernameRef}
 								placeholderTextColor='#878686'
 								placeholder='Escolha um nome de usuário'
@@ -115,19 +159,18 @@ const SignIn = ({ navigation, route }: AuthNavProps<'SignIn'>) => {
 										inputRefs.nameRef.current.focus();
 									}
 								}}
-								onChangeText={(text) => {
+								onChangeText={(text: string) => {
 									setUsername(text);
 								}}
 								blurOnSubmit={false}
-								style={[styles.input, { marginBottom: 20 }]}
-							></TextInput>
-							<TextInput
+							></Input>
+							<Input
 								ref={inputRefs.nameRef}
 								placeholderTextColor='#878686'
 								placeholder='Nome completo'
 								textContentType='name'
 								value={name}
-								onChangeText={(text) => {
+								onChangeText={(text: string) => {
 									setName(text);
 								}}
 								onSubmitEditing={() => {
@@ -136,9 +179,8 @@ const SignIn = ({ navigation, route }: AuthNavProps<'SignIn'>) => {
 									}
 								}}
 								blurOnSubmit={false}
-								style={[styles.input, { marginBottom: 20 }]}
-							></TextInput>
-							<TextInput
+							></Input>
+							<Input
 								onSubmitEditing={() => {
 									if (inputRefs.password2.current) {
 										inputRefs.password2.current.focus();
@@ -148,15 +190,15 @@ const SignIn = ({ navigation, route }: AuthNavProps<'SignIn'>) => {
 								secureTextEntry={true}
 								value={password}
 								ref={inputRefs.password}
-								onChangeText={(text) => {
+								onChangeText={(text: string) => {
 									setPassword(text);
 								}}
 								blurOnSubmit={false}
 								placeholderTextColor='#878686'
 								placeholder='Digite sua senha'
-								style={[styles.input, { marginBottom: 20 }]}
-							></TextInput>
-							<TextInput
+							></Input>
+							<Input
+								style={{ marginBottom: 30 }}
 								onSubmitEditing={() => {
 									handleSubmit();
 								}}
@@ -164,14 +206,13 @@ const SignIn = ({ navigation, route }: AuthNavProps<'SignIn'>) => {
 								textContentType='password'
 								secureTextEntry={true}
 								value={password2}
-								onChangeText={(text) => {
+								onChangeText={(text: string) => {
 									setPassword2(text);
 								}}
 								blurOnSubmit={false}
 								placeholderTextColor='#878686'
 								placeholder='Confirme sua senha'
-								style={[styles.input, { marginBottom: 33 }]}
-							></TextInput>
+							></Input>
 							<Button
 								text='Continuar'
 								handleClick={handleSubmit}
@@ -182,61 +223,19 @@ const SignIn = ({ navigation, route }: AuthNavProps<'SignIn'>) => {
 								heightSize={56.97}
 								textWeight='600'
 							/>
-						</View>
+						</Form>
 						<TouchableWithoutFeedback
 							onPress={() => {
 								navigation.navigate('Login');
 							}}
 						>
-							<Text style={styles.link}>Voltar para o login </Text>
+							<Link>Voltar para o login </Link>
 						</TouchableWithoutFeedback>
-					</View>
+					</CardBody>
 				</Card>
 			</ScrollView>
-		</View>
+		</Container>
 	);
 };
-
-const styles = StyleSheet.create({
-	container: {
-		fontFamily: 'Roboto-Regular',
-		flex: 1,
-		backgroundColor: '#8C52E5',
-		alignItems: 'center',
-	},
-	form: {
-		marginBottom: 37,
-	},
-	logo: {
-		height: 55,
-		width: 249,
-		marginTop: 40,
-		marginBottom: 60,
-	},
-	cardBody: {
-		width: (width * 70) / 100,
-		height: (height * 70) / 100,
-	},
-	title: {
-		marginTop: 5,
-		fontSize: 21,
-		fontWeight: '500',
-		color: '#1d1d1d',
-		lineHeight: 24.61,
-		marginBottom: 36,
-	},
-	link: {
-		fontWeight: '500',
-		fontSize: 13,
-		marginBottom: 20,
-		color: '#8C52E5',
-		textAlign: 'center',
-	},
-	input: {
-		padding: 5,
-		borderBottomWidth: 1,
-		borderBottomColor: '#878686',
-	},
-});
 
 export default SignIn;

@@ -1,10 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import { ActivityIndicator } from 'react-native';
-import { Center } from '../components/Center';
-import AppTabs from './AppTabs';
-import AuthRoutes from './AuthRoutes';
-import { useFonts } from 'expo-font';
 import RootStackScreen from './RootStackScreen';
 
 const Routes = () => {

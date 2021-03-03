@@ -8,10 +8,6 @@ import Toast from 'react-native-toast-message';
 import styled from 'styled-components/native';
 
 import {
-	StyleSheet,
-	Text,
-	View,
-	Image,
 	Dimensions,
 	TextInput,
 	TouchableWithoutFeedback,
@@ -26,6 +22,50 @@ import { AuthContext } from '../utils/auth/AuthProvider';
 
 import { LoginUser } from '../store/modules/user/action';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+const Container = styled.View`
+	flex: 1;
+	background-color: #8c52e5;
+	align-items: center;
+	font-family: 'Roboto-Regular';
+`;
+const CardBody = styled.View`
+	width: ${(width * 70) / 100};
+	height: ${(height * 66) / 100};
+`;
+const Tittle = styled.Text`
+	margin-top: 5px;
+	font-size: 21px;
+	text-align: center;
+	font-weight: 500;
+	color: #1d1d1d;
+	line-height: 24.61px;
+	margin-bottom: 60px;
+`;
+const Form = styled.View`
+	margin-bottom: 37px;
+`;
+
+const Link = styled.Text`
+	font-weight: 500;
+	font-size: 13px;
+	margin-bottom: 20px;
+	color: #8c52e5;
+	text-align: center;
+`;
+
+const Input = styled.TextInput`
+	margin-bottom: 37px;
+	padding: 5px;
+	border-bottom-width: 1;
+	border-bottom-color: #878686;
+`;
+
+const Logo = styled.Image`
+	height: 55px;
+	width: 249px;
+	margin-top: 40px;
+	margin-bottom: 60px;
+`;
 
 const Login = ({ navigation, route }: AuthNavProps<'Login'>) => {
 	const { login } = useContext(AuthContext);
@@ -34,11 +74,11 @@ const Login = ({ navigation, route }: AuthNavProps<'Login'>) => {
 	const inputRef = useRef<TextInput>(null);
 	const dispatch = useDispatch();
 	const store = useStore();
-	
+
 	const handleSubmit = () => {
 		api
 			.post(`login`, { senha: password, usuario: username })
-			.then(async (res) => {
+			.then(async (res: any) => {
 				login();
 				let user: IUser = res.data.usuario;
 				console.log(user);
@@ -55,23 +95,17 @@ const Login = ({ navigation, route }: AuthNavProps<'Login'>) => {
 					text2: err.message,
 				});
 			});
-
 	};
 
 	return (
-		<View style={styles.container}>
-			<Image
-				style={styles.logo}
-				source={require('../assets/images/logo-gamaacademy.png')}
-			/>
+		<Container>
+			<Logo source={require('../assets/images/logo-gamaacademy.png')} />
 			<ScrollView>
 				<Card>
-					<View style={styles.cardBody}>
-						<Text style={styles.title}>
-							Seja bem vindo, informe seus dados para logar.
-						</Text>
-						<View style={styles.form}>
-							<TextInput
+					<CardBody>
+						<Tittle>Seja bem vindo, informe seus dados para logar.</Tittle>
+						<Form>
+							<Input
 								onSubmitEditing={() => {
 									if (inputRef.current) {
 										inputRef.current.focus();
@@ -81,25 +115,25 @@ const Login = ({ navigation, route }: AuthNavProps<'Login'>) => {
 								placeholder='Digite seu usuário'
 								textContentType='username'
 								value={username}
-								onChangeText={(text) => {
+								onChangeText={(text: string) => {
 									setUsername(text);
 								}}
 								blurOnSubmit={false}
-								style={[styles.input, { marginBottom: 45 }]}
-							></TextInput>
-							<TextInput
+								style={{ marginBottom: 45 }}
+							></Input>
+							<Input
 								textContentType='password'
 								secureTextEntry={true}
 								value={password}
 								ref={inputRef}
-								onChangeText={(text) => {
+								onChangeText={(text: string) => {
 									setPassword(text);
 								}}
 								blurOnSubmit={false}
 								placeholderTextColor='#878686'
 								placeholder='Digite sua senha'
-								style={[styles.input, { marginBottom: 50 }]}
-							></TextInput>
+								style={{ marginBottom: 50 }}
+							></Input>
 							<Button
 								text='Continuar'
 								handleClick={handleSubmit}
@@ -110,80 +144,26 @@ const Login = ({ navigation, route }: AuthNavProps<'Login'>) => {
 								heightSize={56.97}
 								textWeight='600'
 							/>
-						</View>
+						</Form>
 						<TouchableWithoutFeedback
 							onPress={() => {
 								navigation.navigate('PasswordRecovery');
 							}}
 						>
-							<Text style={styles.link}>Esqueci minha senha </Text>
+							<Link>Esqueci minha senha </Link>
 						</TouchableWithoutFeedback>
 						<TouchableWithoutFeedback
 							onPress={() => {
 								navigation.navigate('SignIn');
 							}}
 						>
-							<Text style={styles.link}>Ainda não sou cliente </Text>
+							<Link>Ainda não sou cliente </Link>
 						</TouchableWithoutFeedback>
-					</View>
+					</CardBody>
 				</Card>
 			</ScrollView>
-		</View>
+		</Container>
 	);
 };
-
-const Container = styled.View`
-	flex: 1;
-	background-color: '#8C52E5';
-	align-items: 'center';
-	font-family: 'Roboto-Regular';
-`;
-
-const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		backgroundColor: '#8C52E5',
-		alignItems: 'center',
-		fontFamily: 'Roboto-Regular',
-	},
-	scrollWrapper: {
-		maxHeight: (height * 73) / 100,
-		paddingHorizontal: (width * 7) / 100,
-	},
-	form: {
-		marginBottom: 37,
-	},
-	logo: {
-		height: 55,
-		width: 249,
-		marginTop: 40,
-		marginBottom: 60,
-	},
-	cardBody: {
-		width: (width * 70) / 100,
-		height: (height * 66) / 100,
-	},
-	title: {
-		marginTop: 5,
-		fontSize: 21,
-		textAlign: 'center',
-		fontWeight: '500',
-		color: '#1d1d1d',
-		lineHeight: 24.61,
-		marginBottom: 60,
-	},
-	link: {
-		fontWeight: '500',
-		fontSize: 13,
-		marginBottom: 20,
-		color: '#8C52E5',
-		textAlign: 'center',
-	},
-	input: {
-		padding: 5,
-		borderBottomWidth: 1,
-		borderBottomColor: '#878686',
-	},
-});
 
 export default Login;
