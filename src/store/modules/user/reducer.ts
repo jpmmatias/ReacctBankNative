@@ -1,39 +1,31 @@
 import { Reducer } from 'redux';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { IUser } from '../../../types';
 
-let storageToken = async () => {
-	try {
-		return await AsyncStorage.getItem('@tokenApp');
-	} catch (err) {
-		console.log(err);
-	}
-};
+interface IState{
+	user:IUser
+}
 
-const INITIAL_STATE = {
-	user: {},
-	logged: async () => {
-		await storageToken().then((value) => {
-			return value;
-		});
+const INITIAL_STATE:IState = {
+	user: {
+		id:0,
+		login:'',
+		cpf:'',
+		nome:'',
+		senha:'',
+		redefinirSenha:false,
+		senhaTemporaria:'',
 	},
 };
 
-const userReducer: Reducer<any> = (state = INITIAL_STATE, action) => {
+const userReducer: Reducer<IState> = (state:IState = INITIAL_STATE, action) => {
 	switch (action.type) {
 		case 'LOGIN':
-			const { user } = action.payload;
+			const {user} = action.payload;
+			console.log(user)
 			return {
 				...state,
-				logged: true,
-				user,
+				user
 			};
-		case 'LOGOUT':
-			return {
-				...state,
-				logged: false,
-				user: {},
-			};
-
 		default: {
 			return state;
 		}

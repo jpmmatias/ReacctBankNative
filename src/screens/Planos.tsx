@@ -4,11 +4,16 @@ import { Center } from '../components/Center';
 import Card from '../components/Card';
 import api from '../services/api';
 import Toast from 'react-native-toast-message';
-import { IListData, IPlanoconta } from '../types';
+import { IListData, IPlanoconta, IUser } from '../types';
 import { FlatList, TextInput } from 'react-native-gesture-handler';
 import {Picker} from '@react-native-community/picker';
+import { useStore } from 'react-redux';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Planos = () => {
+	const store = useStore()
+	const user:IUser = store.getState().user.user
+
 	const [listData, setListData] = useState<IListData[]>([])
 	const [planosConta, setPlanosConta] = useState<IPlanoconta[]>([])
 	const [descricao, setDescricao] = useState('')
@@ -16,7 +21,7 @@ const Planos = () => {
 	const [novoPlano, setNovoPlano] = useState<IPlanoconta>({
 		descricao: '',
 		id: 0,
-		login: 'chris',
+		login: user.login,
 		tipoMovimento: '',
 		padrao: false,
 	});
@@ -26,14 +31,16 @@ const Planos = () => {
 		setNovoPlano({...novoPlano, [campo]:value})
 	}
 
-	function adicionarPlanoContas(){
+	async function adicionarPlanoContas(){
 		let id = planosConta[planosConta.length - 1].id + 1;
 		let plano = { ...novoPlano, id };
-		api.post('lancamentos/planos-conta?login=chris',plano,{
+		api.post(`lancamentos/planos-conta?login=${plano.login}`,plano,  {
 			headers: {
-				Authorization: "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjaHJpcyIsImlkVXN1YXJpbyI6NDMxLCJhdXRob3JpdGllcyI6WyJST0xFX1VTRVIiXSwiaWF0IjoxNjE0NjQ5NDQyLCJleHAiOjE2MTQ2NTMwNDJ9.jCmz-kkCvbb4dK6fkQR_ZcyOriDI_gJi_RHYkAnsC533ihAiI7FvaC7UbTdsE-kgLibUbHeq-8d4Y0CmECrrbQ",
-			}
-		}).then(res =>{
+				'Content-Type': 'application/json',
+				Authorization: await AsyncStorage.getItem('@tokenApp'),
+			},
+		})
+		.then(res =>{
 			Toast.show({
 				type: 'success',
 				position: 'top',
@@ -50,40 +57,48 @@ const Planos = () => {
 	}
 
 	useEffect(()=>{
-		api.get("/lancamentos/planos-conta?login=chris",{
-			headers: {
-				Authorization: "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjaHJpcyIsImlkVXN1YXJpbyI6NDMxLCJhdXRob3JpdGllcyI6WyJST0xFX1VTRVIiXSwiaWF0IjoxNjE0NjQ5NDQyLCJleHAiOjE2MTQ2NTMwNDJ9.jCmz-kkCvbb4dK6fkQR_ZcyOriDI_gJi_RHYkAnsC533ihAiI7FvaC7UbTdsE-kgLibUbHeq-8d4Y0CmECrrbQ",
-			}
-		}).then(res =>{
-			Toast.show({
-				type: 'success',
-				position: 'top',
-				text1: "sucesso",	 			
-			});
-			
-			let planosContaAux:IPlanoconta[] = res.data
-			let result:IListData[] = []
-			for(let i=0; i<planosContaAux.length; i++){
-				result.push({key:planosContaAux[i].descricao+" ("+planosContaAux[i].tipoMovimento+")"})
-			}
+		async function load(){
+			console.log(await AsyncStorage.getItem('@tokenApp'))
+			api.get(`/lancamentos/planos-conta?login=${user.login}`,{
+				headers: {
+					'Content-Type': 'application/json',
+					Authorization: await AsyncStorage.getItem('@tokenApp'),
+				},
+			})
+			.then(res =>{
+				Toast.show({
+					type: 'success',
+					position: 'top',
+					text1: "sucesso",	 			
+				});
+				
+				let planosContaAux:IPlanoconta[] = res.data
+				let result:IListData[] = []
+				for(let i=0; i<planosContaAux.length; i++){
+					result.push({key:planosContaAux[i].descricao+" ("+planosContaAux[i].tipoMovimento+")"})
+				}
+	
+				setListData(result)
+				setPlanosConta(res.data)
+							
+			}).catch(err =>{
+				Toast.show({
+					type: 'error',
+					position: 'top',
+					text1: err.message,	 			
+				});
+			})
+		}
 
-			setListData(result)
-			setPlanosConta(res.data)
-						
-		}).catch(err =>{
-			Toast.show({
-				type: 'error',
-				position: 'top',
-				text1: err.message,	 			
-			});
-		})
+		load()
+		
 		
 	},[])
 
 	return (
 		<Center>
 			<Card>
-				<Text>Planos de Contas</Text>
+				<Text>Plano de Contas</Text>
 					<TextInput		
 						placeholderTextColor='#878686'
 						placeholder='Nome'

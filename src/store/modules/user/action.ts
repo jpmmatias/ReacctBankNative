@@ -1,15 +1,10 @@
-export function LoginUser(user: any) {
-	return {
-		type: 'LOGIN',
-		payload: {
-			user: user,
-			logged: true,
-		},
-	};
-}
+import { IUser } from "../../../types";
 
-export function Logout() {
+export function LoginUser(user: IUser) {
 	return {
-		type: 'LOGOUT',
-	};
-}
+	  type: 'LOGIN',
+	  payload: {
+		user
+	  }
+	}
+  }
