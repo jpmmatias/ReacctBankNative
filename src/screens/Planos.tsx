@@ -4,144 +4,126 @@ import { Center } from '../components/Center';
 import Card from '../components/Card';
 import api from '../services/api';
 import Toast from 'react-native-toast-message';
-import { AppTabNavProps, IListData, IPlanoconta } from '../types';
+import {  AppTabNavProps, IListData, IPlanoconta, IUser } from '../types';
 import { FlatList, TextInput } from 'react-native-gesture-handler';
-import { Picker } from '@react-native-community/picker';
-import Header from '../components/Header';
+import {Picker} from '@react-native-community/picker';
+import { useStore } from 'react-redux';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Planos = ({ navigation, route }: AppTabNavProps<'Planos'>) => {
-	const [listData, setListData] = useState<IListData[]>([]);
-	const [planosConta, setPlanosConta] = useState<IPlanoconta[]>([]);
-	const [descricao, setDescricao] = useState('');
-	const [tipoMovimento, setTipoMovimento] = useState('');
+	const store = useStore()
+	const user:IUser = store.getState().user.user
+
+	const [listData, setListData] = useState<IListData[]>([])
+	const [planosConta, setPlanosConta] = useState<IPlanoconta[]>([])
+	const [descricao, setDescricao] = useState('')
+	const [tipoMovimento, setTipoMovimento] = useState('')
+
 	const [novoPlano, setNovoPlano] = useState<IPlanoconta>({
 		descricao: '',
 		id: 0,
-		login: 'chris',
+		login: user.login,
 		tipoMovimento: '',
 		padrao: false,
 	});
-	// const handleHeaderPress = () => {
-	// 	navigation.openDrawer();
-	// };
 
 	function handleChange(method: any, campo: string, value: string) {
 		method(value);
 		setNovoPlano({ ...novoPlano, [campo]: value });
 	}
-
-	function adicionarPlanoContas() {
+  
+	async function adicionarPlanoContas(){
 		let id = planosConta[planosConta.length - 1].id + 1;
 		let plano = { ...novoPlano, id };
-		api
-			.post('lancamentos/planos-conta?login=chris', plano, {
-				headers: {
-					Authorization:
-						'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjaHJpcyIsImlkVXN1YXJpbyI6NDMxLCJhdXRob3JpdGllcyI6WyJST0xFX1VTRVIiXSwiaWF0IjoxNjE0NjQ5NDQyLCJleHAiOjE2MTQ2NTMwNDJ9.jCmz-kkCvbb4dK6fkQR_ZcyOriDI_gJi_RHYkAnsC533ihAiI7FvaC7UbTdsE-kgLibUbHeq-8d4Y0CmECrrbQ',
-				},
-			})
-			.then((res) => {
-				Toast.show({
-					type: 'success',
-					position: 'top',
-					text1: 'sucesso',
-				});
-			})
-			.catch((err) => {
-				Toast.show({
-					type: 'error',
-					position: 'top',
-					text1: err.message,
-				});
+		api.post(`lancamentos/planos-conta?login=${plano.login}`,plano,  {
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: await AsyncStorage.getItem('@tokenApp'),
+			},
+		})
+		.then(res =>{
+			Toast.show({
+				type: 'success',
+				position: 'top',
+				text1: "sucesso",	 			
 			});
+		}).catch(err => {
+			Toast.show({
+				type: 'error',
+				position: 'top',
+				text1: err.message,	 			
+			});
+		})
+	
 	}
 
-	useEffect(() => {
-		api
-			.get('/lancamentos/planos-conta?login=chris', {
+useEffect(()=>{
+		async function load(){
+			console.log(await AsyncStorage.getItem('@tokenApp'))
+			api.get(`/lancamentos/planos-conta?login=${user.login}`,{
 				headers: {
-					Authorization:
-						'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjaHJpcyIsImlkVXN1YXJpbyI6NDMxLCJhdXRob3JpdGllcyI6WyJST0xFX1VTRVIiXSwiaWF0IjoxNjE0NjQ5NDQyLCJleHAiOjE2MTQ2NTMwNDJ9.jCmz-kkCvbb4dK6fkQR_ZcyOriDI_gJi_RHYkAnsC533ihAiI7FvaC7UbTdsE-kgLibUbHeq-8d4Y0CmECrrbQ',
+					'Content-Type': 'application/json',
+					Authorization: await AsyncStorage.getItem('@tokenApp'),
 				},
 			})
-			.then((res) => {
+			.then(res =>{
 				Toast.show({
 					type: 'success',
 					position: 'top',
-					text1: 'sucesso',
+					text1: "sucesso",	 			
 				});
-
-				let planosContaAux: IPlanoconta[] = res.data;
-				let result: IListData[] = [];
-				for (let i = 0; i < planosContaAux.length; i++) {
-					result.push({
-						key:
-							planosContaAux[i].descricao +
-							' (' +
-							planosContaAux[i].tipoMovimento +
-							')',
-					});
+				
+				let planosContaAux:IPlanoconta[] = res.data
+				let result:IListData[] = []
+				for(let i=0; i<planosContaAux.length; i++){
+					result.push({key:planosContaAux[i].descricao+" ("+planosContaAux[i].tipoMovimento+")"})
 				}
-
-				setListData(result);
-				setPlanosConta(res.data);
-			})
-			.catch((err) => {
+	
+				setListData(result)
+				setPlanosConta(res.data)
+							
+			}).catch(err =>{
 				Toast.show({
 					type: 'error',
 					position: 'top',
-					text1: err.message,
+					text1: err.message,	 			
 				});
-			});
-	}, []);
+			})
+		}
+
+		load()
+		
+		
+	},[])
 
 	return (
-		<View>
-			<Header name='Usuário ' onPress={() => console.log('abrir')} />
-			<View>
-				<Card>
-					<Text>Planos de Contas</Text>
-					<TextInput
+		<Center>
+			<Card>
+				<Text>Plano de Contas</Text>
+					<TextInput		
 						placeholderTextColor='#878686'
 						placeholder='Nome'
 						textContentType='name'
 						blurOnSubmit={false}
 						style={[styles.input, { marginBottom: 40 }]}
 						value={descricao}
-						onChangeText={(text: string) =>
-							handleChange(setDescricao, 'descricao', text)
-						}
+						onChangeText={(text:string)=>handleChange(setDescricao, "descricao", text)}
 					></TextInput>
-					<Picker
-						selectedValue={tipoMovimento}
-						onValueChange={(value) =>
-							handleChange(setTipoMovimento, 'tipoMovimento', value.toString())
-						}
-					>
-						{planosConta.map((planoConta) => {
-							if (planoConta.padrao) {
-								return (
-									<Picker.Item
-										label={
-											planoConta.descricao +
-											' (' +
-											planoConta.tipoMovimento +
-											') '
-										}
-										value={planoConta.tipoMovimento}
-									/>
-								);
+					<Picker selectedValue={tipoMovimento} onValueChange={(value) => handleChange(setTipoMovimento, "tipoMovimento", value.toString())}>
+						{planosConta.map(planoConta =>{
+							if(planoConta.padrao){
+								return(
+									<Picker.Item label={planoConta.descricao+" ("+planoConta.tipoMovimento+") "} value={planoConta.tipoMovimento}/>	
+								)
 							}
+							
 						})}
+						
 					</Picker>
-					<Button title='Adicionar' onPress={adicionarPlanoContas} />
-					<FlatList
-						data={listData}
-						renderItem={({ item }) => <Text>{item.key} </Text>}
-					/>
-				</Card>
-			</View>
-		</View>
+					<Button title="Adicionar" onPress={adicionarPlanoContas}/>
+				<FlatList data={listData}  renderItem={({item}) => <Text>{item.key} </Text>}/>
+			</Card>
+		</Center>
 	);
 };
 

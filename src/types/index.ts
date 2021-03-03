@@ -81,3 +81,13 @@ export interface IPlanoconta {
 export interface IListData {
 	key: string;
 }
+
+export interface IUser{
+	id:number,
+	login:string,
+	cpf:string,
+	nome:string,
+	senha:string,
+	redefinirSenha:boolean,
+	senhaTemporaria:string,
+}
