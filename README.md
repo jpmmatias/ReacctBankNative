@@ -151,3 +151,4 @@ Muito obrigado a todos que nos ajudaram durante o curso
 - Camila, nossa yellow belt
 - Accenture
 - Gama Academy
+
