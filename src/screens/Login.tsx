@@ -15,14 +15,17 @@ import {
 	Dimensions,
 	TextInput,
 	TouchableWithoutFeedback,
+	ScrollView,
 } from 'react-native';
-import { AuthNavProps } from '../types';
+import { AuthNavProps, IUser } from '../types';
 const { width, height } = Dimensions.get('window');
 
 import { useStore } from 'react-redux';
 
 import { AuthContext } from '../utils/auth/AuthProvider';
-import { ScrollView } from 'react-native-gesture-handler';
+
+import { LoginUser } from '../store/modules/user/action';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Login = ({ navigation, route }: AuthNavProps<'Login'>) => {
 	const { login } = useContext(AuthContext);
@@ -34,8 +37,12 @@ const Login = ({ navigation, route }: AuthNavProps<'Login'>) => {
 	const handleSubmit = () => {
 		api
 			.post(`login`, { senha: password, usuario: username })
-			.then((res) => {
+			.then(async (res) => {
 				login();
+				let user: IUser = res.data.usuario;
+				console.log(user);
+				dispatch(LoginUser(user));
+				await AsyncStorage.setItem('@tokenApp', res.data.token);
 			})
 			.catch((err) => {
 				console.log('aaa');
@@ -139,6 +146,10 @@ const styles = StyleSheet.create({
 		backgroundColor: '#8C52E5',
 		alignItems: 'center',
 		fontFamily: 'Roboto-Regular',
+	},
+	scrollWrapper: {
+		maxHeight: (height * 73) / 100,
+		paddingHorizontal: (width * 7) / 100,
 	},
 	form: {
 		marginBottom: 37,

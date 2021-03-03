@@ -60,7 +60,7 @@ const Depositar = ({ navigation, route }: AppTabNavProps<'Depositar'>) => {
 						></TextInput>
 						<TextInput
 							placeholder='Valor de depósito'
-							style={[styles.input, { marginBottom: 70 }]}
+							style={[styles.input, { marginBottom: 50 }]}
 						></TextInput>
 						<Button
 							text='Realizar Depósitos'
@@ -102,7 +102,7 @@ const styles = StyleSheet.create({
 	},
 	cardBody: {
 		width: (width * 70) / 100,
-		height: (height * 66) / 100,
+		height: (height * 60) / 100,
 	},
 	title: {
 		marginTop: 5,
