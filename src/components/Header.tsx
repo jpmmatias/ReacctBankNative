@@ -9,11 +9,31 @@ import {
 import { FontAwesome5 } from '@expo/vector-icons';
 const { width, height } = Dimensions.get('screen');
 import { IHeader } from '../types';
+//@ts-ignore
+import styled from 'styled-components/native';
+const Container = styled.View`
+	width: ${width}px;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	margin-top: ${(height * 5) / 100}px;
+	margin-bottom: ${(height * 5) / 100}px;
+	padding-right: ${(width * 7) / 100}px;
+	padding-left: ${(width * 7) / 100}px;
+`;
+const Hello = styled.Text`
+	font-family: 'Roboto-Medium';
+	font-size: 22px;
+	color: #fff;
+`;
+const IconsContainer = styled.View`
+	flex-direction: row;
+`;
 const Header = ({ name, openDrawer, goToHome }: IHeader) => {
 	return (
-		<View style={styles.container}>
-			<Text style={styles.text}>Olá {name}</Text>
-			<View style={styles.icons}>
+		<Container>
+			<Hello>Olá {name}</Hello>
+			<IconsContainer>
 				<TouchableOpacity onPress={goToHome}>
 					<FontAwesome5
 						style={{ marginRight: (width * 5) / 100 }}
@@ -25,28 +45,9 @@ const Header = ({ name, openDrawer, goToHome }: IHeader) => {
 				<TouchableOpacity onPress={openDrawer}>
 					<FontAwesome5 name='user-circle' size={24} color='white' />
 				</TouchableOpacity>
-			</View>
-		</View>
+			</IconsContainer>
+		</Container>
 	);
 };
 
 export default Header;
-
-const styles = StyleSheet.create({
-	container: {
-		width,
-		flexDirection: 'row',
-		justifyContent: 'space-between',
-		alignItems: 'center',
-		marginVertical: (height * 5) / 100,
-		paddingHorizontal: (width * 7) / 100,
-	},
-	text: {
-		fontFamily: 'Roboto-Medium',
-		fontSize: 22,
-		color: '#fff',
-	},
-	icons: {
-		flexDirection: 'row',
-	},
-});

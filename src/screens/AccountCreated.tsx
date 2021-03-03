@@ -1,11 +1,22 @@
 import React, { useEffect } from 'react';
-import { StyleSheet, Text, View, Image, Dimensions } from 'react-native';
+import { Dimensions } from 'react-native';
 import { AuthNavProps } from '../types';
-// @ts-ignore
-import like from '../assets/images/like.png';
 import { Center } from '../components/Center';
 const { width, height } = Dimensions.get('window');
+//@ts-ignore
+import styled from 'styled-components/native';
 
+const Like = styled.Image`
+	height: 162px;
+	width: 162px;
+	margin-bottom: 30px;
+`;
+
+const Title = styled.Text`
+	font-family: 'Roboto-Medium';
+	color: #fff;
+	font-size: 20;
+`;
 const AccountCreated = ({
 	navigation,
 	route,
@@ -17,24 +28,10 @@ const AccountCreated = ({
 	}, []);
 	return (
 		<Center>
-			<Image style={styles.like} source={like} />
-			<Text style={styles.text}>Conta criada com sucesso!</Text>
+			<Like source={require('../assets/images/like.png')} />
+			<Title>Conta criada com sucesso!</Title>
 		</Center>
 	);
 };
-
-const styles = StyleSheet.create({
-	text: {
-		fontFamily: 'Roboto-Medium',
-		color: '#fff',
-		fontSize: 20,
-	},
-
-	like: {
-		height: 162,
-		width: 162,
-		marginBottom: 30,
-	},
-});
 
 export default AccountCreated;
