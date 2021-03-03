@@ -9,12 +9,12 @@ import {
 import { FontAwesome5 } from '@expo/vector-icons';
 const { width, height } = Dimensions.get('screen');
 import { IHeader } from '../types';
-const Header = ({ name, onPress }: IHeader) => {
+const Header = ({ name, openDrawer, goToHome }: IHeader) => {
 	return (
 		<View style={styles.container}>
 			<Text style={styles.text}>Olá {name}</Text>
 			<View style={styles.icons}>
-				<TouchableOpacity onPress={onPress}>
+				<TouchableOpacity onPress={goToHome}>
 					<FontAwesome5
 						style={{ marginRight: (width * 5) / 100 }}
 						name='home'
@@ -22,7 +22,7 @@ const Header = ({ name, onPress }: IHeader) => {
 						color='white'
 					/>
 				</TouchableOpacity>
-				<TouchableOpacity onPress={onPress}>
+				<TouchableOpacity onPress={openDrawer}>
 					<FontAwesome5 name='user-circle' size={24} color='white' />
 				</TouchableOpacity>
 			</View>

@@ -1,28 +1,28 @@
-import { IPlanoconta, IUser } from "../../../types";
+import { IPlanoconta, IUser } from '../../../types';
 
 export function LoginUser(user: IUser) {
 	return {
-	  type: 'LOGIN',
-	  payload: {
-		user
-	  }
-	}
-  }
+		type: 'LOGIN',
+		payload: {
+			user,
+		},
+	};
+}
 
-  export function savePlanosConta(planosConta:IPlanoconta[]) {
+export function savePlanosConta(planosConta: IPlanoconta[]) {
 	return {
-	  type: 'ADD_PLANOS_CONTA',
-	  payload: {
-		planosConta
-	  }
-	}
-  }
+		type: 'ADD_PLANOS_CONTA',
+		payload: {
+			planosConta,
+		},
+	};
+}
 
-  export function putPlanoConta(planoConta:IPlanoconta) {
+export function putPlanoConta(planoConta: IPlanoconta) {
 	return {
-	  type: 'PUT_PLANO_CONTA',
-	  payload: {
-		planoConta
-	  }
-	}
-  }
+		type: 'PUT_PLANO_CONTA',
+		payload: {
+			planoConta,
+		},
+	};
+}

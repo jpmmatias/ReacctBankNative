@@ -4,6 +4,9 @@ import Button from '../components/Button';
 import api from '../services/api';
 import { useDispatch } from 'react-redux';
 import Toast from 'react-native-toast-message';
+//@ts-ignore
+import styled from 'styled-components/native';
+
 import {
 	StyleSheet,
 	Text,
@@ -20,6 +23,7 @@ const { width, height } = Dimensions.get('window');
 import { useStore } from 'react-redux';
 
 import { AuthContext } from '../utils/auth/AuthProvider';
+
 import { LoginUser } from '../store/modules/user/action';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -36,12 +40,10 @@ const Login = ({ navigation, route }: AuthNavProps<'Login'>) => {
 			.post(`login`, { senha: password, usuario: username })
 			.then(async (res) => {
 				login();
-				let user:IUser  = res.data.usuario
-				console.log(user)
-				dispatch(LoginUser(user))
-				await AsyncStorage.setItem("@tokenApp",res.data.token)
-				
-				
+				let user: IUser = res.data.usuario;
+				console.log(user);
+				dispatch(LoginUser(user));
+				await AsyncStorage.setItem('@tokenApp', res.data.token);
 			})
 			.catch((err) => {
 				console.log('aaa');
@@ -62,79 +64,80 @@ const Login = ({ navigation, route }: AuthNavProps<'Login'>) => {
 				style={styles.logo}
 				source={require('../assets/images/logo-gamaacademy.png')}
 			/>
-			<ScrollView style={styles.scrollWrapper}>
-			<Card>
-			
-				<View style={styles.cardBody}>
-					<Text style={styles.title}>
-						Seja bem vindo, informe seus dados para logar.
-					</Text>
-
-					<View style={styles.form}>
-						<TextInput
-							onSubmitEditing={() => {
-								if (inputRef.current) {
-									inputRef.current.focus();
-								}
+			<ScrollView>
+				<Card>
+					<View style={styles.cardBody}>
+						<Text style={styles.title}>
+							Seja bem vindo, informe seus dados para logar.
+						</Text>
+						<View style={styles.form}>
+							<TextInput
+								onSubmitEditing={() => {
+									if (inputRef.current) {
+										inputRef.current.focus();
+									}
+								}}
+								placeholderTextColor='#878686'
+								placeholder='Digite seu usuário'
+								textContentType='username'
+								value={username}
+								onChangeText={(text) => {
+									setUsername(text);
+								}}
+								blurOnSubmit={false}
+								style={[styles.input, { marginBottom: 45 }]}
+							></TextInput>
+							<TextInput
+								textContentType='password'
+								secureTextEntry={true}
+								value={password}
+								ref={inputRef}
+								onChangeText={(text) => {
+									setPassword(text);
+								}}
+								blurOnSubmit={false}
+								placeholderTextColor='#878686'
+								placeholder='Digite sua senha'
+								style={[styles.input, { marginBottom: 50 }]}
+							></TextInput>
+							<Button
+								text='Continuar'
+								handleClick={handleSubmit}
+								textColor='#fff'
+								backgroundColor='#68DE5A'
+								textSize={22}
+								widthSize={265.64}
+								heightSize={56.97}
+								textWeight='600'
+							/>
+						</View>
+						<TouchableWithoutFeedback
+							onPress={() => {
+								navigation.navigate('PasswordRecovery');
 							}}
-							placeholderTextColor='#878686'
-							placeholder='Digite seu usuário'
-							textContentType='username'
-							value={username}
-							onChangeText={(text) => {
-								setUsername(text);
+						>
+							<Text style={styles.link}>Esqueci minha senha </Text>
+						</TouchableWithoutFeedback>
+						<TouchableWithoutFeedback
+							onPress={() => {
+								navigation.navigate('SignIn');
 							}}
-							blurOnSubmit={false}
-							style={[styles.input, { marginBottom: 45 }]}
-						></TextInput>
-						<TextInput
-							onSubmitEditing={() => {
-								handleSubmit();
-							}}
-							textContentType='password'
-							secureTextEntry={true}
-							value={password}
-							ref={inputRef}
-							onChangeText={(text) => {
-								setPassword(text);
-							}}
-							blurOnSubmit={false}
-							placeholderTextColor='#878686'
-							placeholder='Digite sua senha'
-							style={[styles.input, { marginBottom: 50 }]}
-						></TextInput>
-						<Button
-							text='Continuar'
-							handleClick={handleSubmit}
-							textColor='#fff'
-							backgroundColor='#68DE5A'
-							textSize={22}
-							widthSize={265.64}
-							heightSize={56.97}
-							textWeight='600'
-						/>
+						>
+							<Text style={styles.link}>Ainda não sou cliente </Text>
+						</TouchableWithoutFeedback>
 					</View>
-					<TouchableWithoutFeedback
-						onPress={() => {
-							navigation.navigate('PasswordRecovery');
-						}}
-					>
-						<Text style={styles.link}>Esqueci minha senha </Text>
-					</TouchableWithoutFeedback>
-					<TouchableWithoutFeedback
-						onPress={() => {
-							navigation.navigate('SignIn');
-						}}
-					>
-						<Text style={styles.link}>Ainda não sou cliente </Text>
-					</TouchableWithoutFeedback>
-				</View>
-				
-			</Card>
+				</Card>
 			</ScrollView>
 		</View>
 	);
 };
+
+const Container = styled.View`
+	flex: 1;
+	background-color: '#8C52E5';
+	align-items: 'center';
+	font-family: 'Roboto-Regular';
+`;
 
 const styles = StyleSheet.create({
 	container: {

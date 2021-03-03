@@ -19,9 +19,16 @@ const Lancamentos = ({
 	const handleHeaderPress = () => {
 		navigation.openDrawer();
 	};
+	const goToHome = () => {
+		navigation.navigate('Home');
+	};
 	return (
 		<View style={styles.container}>
-			<Header name='Usuário' onPress={handleHeaderPress} />
+			<Header
+				name='Usuário'
+				openDrawer={handleHeaderPress}
+				goToHome={goToHome}
+			/>
 			<ScrollView style={styles.scrollWrapper}>
 				<CardUltimosLançamentos lancamentos={lancamentos} />
 			</ScrollView>

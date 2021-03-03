@@ -9,6 +9,7 @@ import {
 	StyleSheet,
 	Text,
 	View,
+	ScrollView,
 	Image,
 	Dimensions,
 	TextInput,
@@ -82,114 +83,116 @@ const SignIn = ({ navigation, route }: AuthNavProps<'SignIn'>) => {
 				style={styles.logo}
 				source={require('../assets/images/logo-gamaacademy.png')}
 			/>
-			<Card>
-				<View style={styles.cardBody}>
-					<Text style={styles.title}>
-						Peça sua conta e cartão de crédito do Gama Bank
-					</Text>
-					<View style={styles.form}>
-						<TextInputMask
-							placeholderTextColor='#878686'
-							placeholder='Digite seu CPF'
-							type={'cpf'}
-							value={cpf}
-							textContentType='postalCode'
-							onChangeText={(value, rawText) => {
-								setCpf(value);
+			<ScrollView>
+				<Card>
+					<View style={styles.cardBody}>
+						<Text style={styles.title}>
+							Peça sua conta e cartão de crédito do Gama Bank
+						</Text>
+						<View style={styles.form}>
+							<TextInputMask
+								placeholderTextColor='#878686'
+								placeholder='Digite seu CPF'
+								type={'cpf'}
+								value={cpf}
+								textContentType='postalCode'
+								onChangeText={(value, rawText) => {
+									setCpf(value);
+								}}
+								keyboardType='number-pad'
+								returnKeyType='done'
+								style={styles.input}
+								ref={(ref) => (inputRefs.cpfRef.current = ref)}
+							/>
+							<TextInput
+								ref={inputRefs.usernameRef}
+								placeholderTextColor='#878686'
+								placeholder='Escolha um nome de usuário'
+								textContentType='username'
+								value={username}
+								onSubmitEditing={() => {
+									if (inputRefs.nameRef.current) {
+										inputRefs.nameRef.current.focus();
+									}
+								}}
+								onChangeText={(text) => {
+									setUsername(text);
+								}}
+								blurOnSubmit={false}
+								style={[styles.input, { marginBottom: 20 }]}
+							></TextInput>
+							<TextInput
+								ref={inputRefs.nameRef}
+								placeholderTextColor='#878686'
+								placeholder='Nome completo'
+								textContentType='name'
+								value={name}
+								onChangeText={(text) => {
+									setName(text);
+								}}
+								onSubmitEditing={() => {
+									if (inputRefs.password.current) {
+										inputRefs.password.current.focus();
+									}
+								}}
+								blurOnSubmit={false}
+								style={[styles.input, { marginBottom: 20 }]}
+							></TextInput>
+							<TextInput
+								onSubmitEditing={() => {
+									if (inputRefs.password2.current) {
+										inputRefs.password2.current.focus();
+									}
+								}}
+								textContentType='password'
+								secureTextEntry={true}
+								value={password}
+								ref={inputRefs.password}
+								onChangeText={(text) => {
+									setPassword(text);
+								}}
+								blurOnSubmit={false}
+								placeholderTextColor='#878686'
+								placeholder='Digite sua senha'
+								style={[styles.input, { marginBottom: 20 }]}
+							></TextInput>
+							<TextInput
+								onSubmitEditing={() => {
+									handleSubmit();
+								}}
+								ref={inputRefs.password2}
+								textContentType='password'
+								secureTextEntry={true}
+								value={password2}
+								onChangeText={(text) => {
+									setPassword2(text);
+								}}
+								blurOnSubmit={false}
+								placeholderTextColor='#878686'
+								placeholder='Confirme sua senha'
+								style={[styles.input, { marginBottom: 33 }]}
+							></TextInput>
+							<Button
+								text='Continuar'
+								handleClick={handleSubmit}
+								textColor='#fff'
+								backgroundColor='#68DE5A'
+								textSize={22}
+								widthSize={265.64}
+								heightSize={56.97}
+								textWeight='600'
+							/>
+						</View>
+						<TouchableWithoutFeedback
+							onPress={() => {
+								navigation.navigate('Login');
 							}}
-							keyboardType='number-pad'
-							returnKeyType='done'
-							style={styles.input}
-							ref={(ref) => (inputRefs.cpfRef.current = ref)}
-						/>
-						<TextInput
-							ref={inputRefs.usernameRef}
-							placeholderTextColor='#878686'
-							placeholder='Escolha um nome de usuário'
-							textContentType='username'
-							value={username}
-							onSubmitEditing={() => {
-								if (inputRefs.nameRef.current) {
-									inputRefs.nameRef.current.focus();
-								}
-							}}
-							onChangeText={(text) => {
-								setUsername(text);
-							}}
-							blurOnSubmit={false}
-							style={[styles.input, { marginBottom: 20 }]}
-						></TextInput>
-						<TextInput
-							ref={inputRefs.nameRef}
-							placeholderTextColor='#878686'
-							placeholder='Nome completo'
-							textContentType='name'
-							value={name}
-							onChangeText={(text) => {
-								setName(text);
-							}}
-							onSubmitEditing={() => {
-								if (inputRefs.password.current) {
-									inputRefs.password.current.focus();
-								}
-							}}
-							blurOnSubmit={false}
-							style={[styles.input, { marginBottom: 20 }]}
-						></TextInput>
-						<TextInput
-							onSubmitEditing={() => {
-								if (inputRefs.password2.current) {
-									inputRefs.password2.current.focus();
-								}
-							}}
-							textContentType='password'
-							secureTextEntry={true}
-							value={password}
-							ref={inputRefs.password}
-							onChangeText={(text) => {
-								setPassword(text);
-							}}
-							blurOnSubmit={false}
-							placeholderTextColor='#878686'
-							placeholder='Digite sua senha'
-							style={[styles.input, { marginBottom: 20 }]}
-						></TextInput>
-						<TextInput
-							onSubmitEditing={() => {
-								handleSubmit();
-							}}
-							ref={inputRefs.password2}
-							textContentType='password'
-							secureTextEntry={true}
-							value={password2}
-							onChangeText={(text) => {
-								setPassword2(text);
-							}}
-							blurOnSubmit={false}
-							placeholderTextColor='#878686'
-							placeholder='Confirme sua senha'
-							style={[styles.input, { marginBottom: 33 }]}
-						></TextInput>
-						<Button
-							text='Continuar'
-							handleClick={handleSubmit}
-							textColor='#fff'
-							backgroundColor='#68DE5A'
-							textSize={22}
-							widthSize={265.64}
-							heightSize={56.97}
-							textWeight='600'
-						/>
+						>
+							<Text style={styles.link}>Voltar para o login </Text>
+						</TouchableWithoutFeedback>
 					</View>
-					<TouchableWithoutFeedback
-						onPress={() => {
-							navigation.navigate('Login');
-						}}
-					>
-						<Text style={styles.link}>Voltar para o login </Text>
-					</TouchableWithoutFeedback>
-				</View>
-			</Card>
+				</Card>
+			</ScrollView>
 		</View>
 	);
 };

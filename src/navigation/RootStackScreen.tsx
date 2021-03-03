@@ -9,6 +9,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import Depositar from '../components/Depositar';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { AuthContext } from '../utils/auth/AuthProvider';
+import Login from '../screens/Login';
 
 const RootStack = createStackNavigator();
 
@@ -56,7 +57,7 @@ const RootStackScreen = () => {
 			screenOptions={{ animationEnabled: false }}
 			mode='modal'
 		>
-			{logged ? (
+			{!logged ? (
 				<RootStack.Screen name='AppTabs' component={AppTabs} />
 			) : (
 				<RootStack.Screen name='AuthRoutes' component={AuthRoutes} />
@@ -71,6 +72,7 @@ const RootStackScreen = () => {
 				component={Depositar}
 				options={{ animationEnabled: true }}
 			/>
+			<RootStack.Screen name='Login' component={Login} />
 		</RootStack.Navigator>
 	);
 };

@@ -2,8 +2,7 @@ import React, { useContext, useEffect } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { AppParamList } from '../types';
 import HomeDrawer from './HomeDrawer';
-import Planos from '../screens/Planos';
-import Lancamentos from '../screens/Lancamentos';
+import PlanosDrawer from './PlanosDrawer';
 import { Center } from '../components/Center';
 import LancamentosDrawer from './LancamentosDrawer';
 import TabBar from '../components/TabBar';
@@ -30,7 +29,7 @@ const AppTabs = () => {
 			<Tabs.Screen name='Transferir' component={TransferirPlaceholder} />
 			<Tabs.Screen name='Lançamentos' component={LancamentosDrawer} />
 			<Tabs.Screen name='Depositar' component={Depositar} />
-			<Tabs.Screen name='Planos' component={Planos} />
+			<Tabs.Screen name='Planos' component={PlanosDrawer} />
 		</Tabs.Navigator>
 	);
 };
