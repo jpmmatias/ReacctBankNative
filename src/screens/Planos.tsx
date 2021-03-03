@@ -35,7 +35,7 @@ const Planos = ({ navigation, route }: PlanosDrrawerNavProps<'Planos'>) => {
 		descricao: '',
 		id: 0,
 		login: user.login,
-		tipoMovimento: '',
+		tipoMovimento: 'R',
 		padrao: false,
 	});
 
@@ -61,8 +61,24 @@ const Planos = ({ navigation, route }: PlanosDrrawerNavProps<'Planos'>) => {
 					text1: 'sucesso',
 				});
 
-				let planosContaAux: IPlanoconta[] = res.data;
-				dispatch(savePlanosConta(planosContaAux));
+				dispatch(putPlanoConta(plano));
+				let result = converToListData(res.data);
+				setListData(result);
+				setPlanosConta(res.data);
+				
+			})
+			.catch((err) => {
+				Toast.show({
+					type: 'error',
+					position: 'top',
+					text1: err.message,
+				});
+				
+			})
+	}
+
+	function converToListData(planosConta:IPlanoconta[]){
+		let planosContaAux: IPlanoconta[] = planosConta
 				let result: IListData[] = [];
 				for (let i = 0; i < planosContaAux.length; i++) {
 					result.push({
@@ -73,25 +89,17 @@ const Planos = ({ navigation, route }: PlanosDrrawerNavProps<'Planos'>) => {
 							')',
 					});
 				}
-
-				setListData(result);
-				setPlanosConta(res.data);
-			})
-			.catch((err) => {
-				Toast.show({
-					type: 'error',
-					position: 'top',
-					text1: err.message,
-				});
-				dispatch(putPlanoConta(plano));
-			})
-			.catch((err) => {});
+		return result;
 	}
+
+	useEffect(()=>{
+		let result = converToListData(globalPlanosConta)
+		setListData(result)
+	},[globalPlanosConta])
 
 	useEffect(() => {
 		setNome(user.nome);
 		async function load() {
-			console.log(await AsyncStorage.getItem('@tokenApp'));
 			api
 				.get(`/lancamentos/planos-conta?login=${user.login}`, {
 					headers: {
@@ -143,6 +151,7 @@ const Planos = ({ navigation, route }: PlanosDrrawerNavProps<'Planos'>) => {
 
 	return (
 		<View style={styles.container}>
+			{console.log(planosConta)}
 			<Header name={nome} openDrawer={handleHeaderPress} goToHome={gotToHome} />
 			<ScrollView style={styles.scrollWrapper}>
 				<View
@@ -189,6 +198,7 @@ const Planos = ({ navigation, route }: PlanosDrrawerNavProps<'Planos'>) => {
 										/>
 									);
 								}
+								return null
 							})}
 						</Picker>
 						<Button title='Adicionar' onPress={adicionarPlanoContas} />
