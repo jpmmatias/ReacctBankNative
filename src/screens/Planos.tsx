@@ -7,12 +7,17 @@ import Toast from 'react-native-toast-message';
 import {  AppTabNavProps, IListData, IPlanoconta, IUser } from '../types';
 import { FlatList, TextInput } from 'react-native-gesture-handler';
 import {Picker} from '@react-native-community/picker';
-import { useStore } from 'react-redux';
+import { useDispatch, useStore } from 'react-redux';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { putPlanoConta, savePlanosConta } from '../store/modules/user/action';
 
 const Planos = ({ navigation, route }: AppTabNavProps<'Planos'>) => {
 	const store = useStore()
 	const user:IUser = store.getState().user.user
+	const globalPlanosConta:IPlanoconta[] = store.getState().user.planosConta
+	const dispatch = useDispatch()
+
+	console.log(globalPlanosConta)
 
 	const [listData, setListData] = useState<IListData[]>([])
 	const [planosConta, setPlanosConta] = useState<IPlanoconta[]>([])
@@ -33,7 +38,7 @@ const Planos = ({ navigation, route }: AppTabNavProps<'Planos'>) => {
 	}
   
 	async function adicionarPlanoContas(){
-		let id = planosConta[planosConta.length - 1].id + 1;
+		let id = globalPlanosConta[globalPlanosConta.length - 1].id + 1;
 		let plano = { ...novoPlano, id };
 		api.post(`lancamentos/planos-conta?login=${plano.login}`,plano,  {
 			headers: {
@@ -47,12 +52,8 @@ const Planos = ({ navigation, route }: AppTabNavProps<'Planos'>) => {
 				position: 'top',
 				text1: "sucesso",	 			
 			});
+			dispatch(putPlanoConta(plano))
 		}).catch(err => {
-			Toast.show({
-				type: 'error',
-				position: 'top',
-				text1: err.message,	 			
-			});
 		})
 	
 	}
@@ -74,6 +75,7 @@ useEffect(()=>{
 				});
 				
 				let planosContaAux:IPlanoconta[] = res.data
+				dispatch(savePlanosConta(planosContaAux))
 				let result:IListData[] = []
 				for(let i=0; i<planosContaAux.length; i++){
 					result.push({key:planosContaAux[i].descricao+" ("+planosContaAux[i].tipoMovimento+")"})
@@ -110,7 +112,7 @@ useEffect(()=>{
 						onChangeText={(text:string)=>handleChange(setDescricao, "descricao", text)}
 					></TextInput>
 					<Picker selectedValue={tipoMovimento} onValueChange={(value) => handleChange(setTipoMovimento, "tipoMovimento", value.toString())}>
-						{planosConta.map(planoConta =>{
+						{globalPlanosConta.map(planoConta =>{
 							if(planoConta.padrao){
 								return(
 									<Picker.Item label={planoConta.descricao+" ("+planoConta.tipoMovimento+") "} value={planoConta.tipoMovimento}/>	

@@ -30,6 +30,7 @@ const Login = ({ navigation, route }: AuthNavProps<'Login'>) => {
 	const inputRef = useRef<TextInput>(null);
 	const dispatch = useDispatch();
 	const store = useStore();
+	
 	const handleSubmit = () => {
 		api
 			.post(`login`, { senha: password, usuario: username })
@@ -53,8 +54,6 @@ const Login = ({ navigation, route }: AuthNavProps<'Login'>) => {
 				});
 			});
 
-		//	navigation.navigate('Planos')
-		//	navigation.navigate("Transferir")
 	};
 
 	return (
