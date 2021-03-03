@@ -72,6 +72,7 @@ const RootStackScreen = () => {
 				options={{ animationEnabled: true }}
 			/>
 			<RootStack.Screen name='Login' component={AuthRoutes} />
+			<RootStack.Screen name='Dashboard' component={AppTabs} />
 		</RootStack.Navigator>
 	);
 };

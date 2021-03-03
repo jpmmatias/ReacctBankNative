@@ -17,6 +17,7 @@ export type AuthParamList = {
 	Transferir: undefined;
 	Depositar: undefined;
 	Planos: undefined;
+	Dashboard: undefined;
 };
 
 export type AppParamList = {

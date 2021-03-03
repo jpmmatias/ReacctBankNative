@@ -10,6 +10,7 @@ const Container = styled.View`
 	flex: 1;
 	background-color: #8c52e5;
 	align-items: center;
+	justify-content: center;
 `;
 
 const Like = styled.Image`
