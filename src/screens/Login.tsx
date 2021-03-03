@@ -12,6 +12,7 @@ import {
 	Dimensions,
 	TextInput,
 	TouchableWithoutFeedback,
+	ScrollView
 } from 'react-native';
 import { AuthNavProps } from '../types';
 const { width, height } = Dimensions.get('window');
@@ -54,71 +55,75 @@ const Login = ({ navigation, route }: AuthNavProps<'Login'>) => {
 				style={styles.logo}
 				source={require('../assets/images/logo-gamaacademy.png')}
 			/>
-			<Card>
-				<View style={styles.cardBody}>
-					<Text style={styles.title}>
-						Seja bem vindo, informe seus dados para logar.
+			<ScrollView style={styles.scrollWrapper}>
+				<Card>
+
+					<View style={styles.cardBody}>
+						<Text style={styles.title}>
+							Seja bem vindo, informe seus dados para logar.
 					</Text>
-					<View style={styles.form}>
-						<TextInput
-							onSubmitEditing={() => {
-								if (inputRef.current) {
-									inputRef.current.focus();
-								}
+						<View style={styles.form}>
+							<TextInput
+								onSubmitEditing={() => {
+									if (inputRef.current) {
+										inputRef.current.focus();
+									}
+								}}
+								placeholderTextColor='#878686'
+								placeholder='Digite seu usuário'
+								textContentType='username'
+								value={username}
+								onChangeText={(text) => {
+									setUsername(text);
+								}}
+								blurOnSubmit={false}
+								style={[styles.input, { marginBottom: 45 }]}
+							></TextInput>
+							<TextInput
+								onSubmitEditing={() => {
+									handleSubmit();
+								}}
+								textContentType='password'
+								secureTextEntry={true}
+								value={password}
+								ref={inputRef}
+								onChangeText={(text) => {
+									setPassword(text);
+								}}
+								blurOnSubmit={false}
+								placeholderTextColor='#878686'
+								placeholder='Digite sua senha'
+								style={[styles.input, { marginBottom: 50 }]}
+							></TextInput>
+							<Button
+								text='Continuar'
+								handleClick={handleSubmit}
+								textColor='#fff'
+								backgroundColor='#68DE5A'
+								textSize={22}
+								widthSize={265.64}
+								heightSize={56.97}
+								textWeight='600'
+							/>
+						</View>
+						<TouchableWithoutFeedback
+							onPress={() => {
+								navigation.navigate('PasswordRecovery');
 							}}
-							placeholderTextColor='#878686'
-							placeholder='Digite seu usuário'
-							textContentType='username'
-							value={username}
-							onChangeText={(text) => {
-								setUsername(text);
+						>
+							<Text style={styles.link}>Esqueci minha senha </Text>
+						</TouchableWithoutFeedback>
+						<TouchableWithoutFeedback
+							onPress={() => {
+								navigation.navigate('SignIn');
 							}}
-							blurOnSubmit={false}
-							style={[styles.input, { marginBottom: 45 }]}
-						></TextInput>
-						<TextInput
-							onSubmitEditing={() => {
-								handleSubmit();
-							}}
-							textContentType='password'
-							secureTextEntry={true}
-							value={password}
-							ref={inputRef}
-							onChangeText={(text) => {
-								setPassword(text);
-							}}
-							blurOnSubmit={false}
-							placeholderTextColor='#878686'
-							placeholder='Digite sua senha'
-							style={[styles.input, { marginBottom: 50 }]}
-						></TextInput>
-						<Button
-							text='Continuar'
-							handleClick={handleSubmit}
-							textColor='#fff'
-							backgroundColor='#68DE5A'
-							textSize={22}
-							widthSize={265.64}
-							heightSize={56.97}
-							textWeight='600'
-						/>
+						>
+							<Text style={styles.link}>Ainda não sou cliente </Text>
+						</TouchableWithoutFeedback>
 					</View>
-					<TouchableWithoutFeedback
-						onPress={() => {
-							navigation.navigate('PasswordRecovery');
-						}}
-					>
-						<Text style={styles.link}>Esqueci minha senha </Text>
-					</TouchableWithoutFeedback>
-					<TouchableWithoutFeedback
-						onPress={() => {
-							navigation.navigate('SignIn');
-						}}
-					>
-						<Text style={styles.link}>Ainda não sou cliente </Text>
-					</TouchableWithoutFeedback>
-				</View>
-			</Card>
+
+				</Card>
+			</ScrollView>
 		</View>
 	);
 };
@@ -163,6 +168,10 @@ const styles = StyleSheet.create({
 		padding: 5,
 		borderBottomWidth: 1,
 		borderBottomColor: '#878686',
+	},
+	scrollWrapper: {
+		maxHeight: (height * 73) / 100,
+		paddingHorizontal: (width * 7) / 100,
 	},
 });
 

@@ -1,9 +1,10 @@
 import React, { useRef } from 'react';
-import { View, Text, } from 'react-native';
+import { View, Text } from 'react-native';
 import Card from '../components/Card';
 import Button from '../components/Button';
 import { AppTabNavProps } from '../types';
-import { StyleSheet, Image, Dimensions, TextInput } from 'react-native';
+import { StyleSheet, Image, Dimensions, TextInput, TouchableOpacity } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 
 const { width, height } = Dimensions.get('window');
 const Depositar = ({ navigation, route }: AppTabNavProps<'Depositar'>) => {
@@ -18,6 +19,22 @@ const Depositar = ({ navigation, route }: AppTabNavProps<'Depositar'>) => {
 				style={styles.logo}
 				source={require('../assets/images/logo-gamaacademy.png')}
 			/>
+			<View
+				style={{
+					width: width,
+					paddingLeft: (width * 10) / 100,
+					marginBottom: 10,
+				}}
+			>
+				<TouchableOpacity
+					onPress={() => {
+						navigation.goBack();
+					}}
+				>
+					<Ionicons name='arrow-back' color='#fff' size={22} />
+				</TouchableOpacity>
+			</View>
+
 			<Card>
 				<View style={styles.cardBody}>
 					<Image
@@ -27,19 +44,15 @@ const Depositar = ({ navigation, route }: AppTabNavProps<'Depositar'>) => {
 					<Text style={styles.depos}>Depósitos</Text>
 					<View style={styles.form}>
 						<TextInput
-							placeholder="Destinatário"
+							placeholder="Descrição"
 							style={[styles.input, { marginBottom: 20 }]}
 						></TextInput>
 						<TextInput
-							placeholder="Plano de conta"
+							placeholder="Data"
 							style={[styles.input, { marginBottom: 20 }]}
 						></TextInput>
 						<TextInput
-							placeholder="Tipo de transação"
-							style={[styles.input, { marginBottom: 20 }]}
-						></TextInput>
-						<TextInput
-							placeholder="Valor de depósito"
+							placeholder="Valor de depósito em R$:"
 							style={[styles.input, { marginBottom: 70 }]}
 						></TextInput>
 						<Button

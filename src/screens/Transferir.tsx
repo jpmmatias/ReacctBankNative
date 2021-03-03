@@ -53,15 +53,15 @@ const Transferir = ({ navigation, route }: AppTabNavProps<'Transferir'>) => {
 							style={[styles.input, { marginBottom: 20 }]}
 						></TextInput>
 						<TextInput
-							placeholder='Plano de conta a debitar'
+							placeholder='Descrição'
 							style={[styles.input, { marginBottom: 20 }]}
 						></TextInput>
 						<TextInput
-							placeholder='Tipo de transação'
+							placeholder='Data'
 							style={[styles.input, { marginBottom: 20 }]}
 						></TextInput>
 						<TextInput
-							placeholder='Valor da transferência'
+							placeholder='Valor da transferência em R$:'
 							style={[styles.input, { marginBottom: 70 }]}
 						></TextInput>
 						<Button
