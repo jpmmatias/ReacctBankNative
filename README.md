@@ -10,7 +10,6 @@
     Projeto de React Native feito durante o bootcamp da Accenture Academy
     <br />
     <br />
-    <!-- <a href="#">Link do Projeto</a> -->
   </p>
 </p>
 
@@ -53,15 +52,19 @@ A aplicação mobile multiplataforma consiste em um serviço de banco digital f�
 ### Feito com:
 
 - [React Native](https://reactnative.dev/)
+- [React Navigation](https://reactnavigation.org/)
 - [Redux](https://redux.js.org/)
 - [Axios](https://github.com/axios/axios)
 - [Typescript](https://www.typescriptlang.org/)
 - [Yup](https://github.com/jquense/yup)
 - [Expo](https://expo.io/)
+- [Styled Components](https://styled-components.com/)
 
 <div id='mindmap'></div>
 
 ### MindMap
+
+[Acesse aqui!](https://miro.com/app/board/o9J_lS43pUM=/)
 
 <div id='projectstructure'></div>
 
@@ -86,8 +89,12 @@ React Bank Native
 │   └───screens
 │   └───service
 │   └───store
+│   │    │ index.tsx
+│   │    │ modules
 │   └───types
 │   └───utils
+│       │ auth
+│       │ validations
 │   app.json
 │   App.tsx
 │   babel.config.js
@@ -105,12 +112,16 @@ React Bank Native
   ```sh
   npm install npm@latest -g
   ```
+- expo
+  ```sh
+  npm install --global expo-cli
+  ```
 
 ### Instalação
 
 1. Clone o repositório
    ```sh
-   git clone https://github.com/your_username_/Project-Name.git
+   git clone https://github.com/jpmmatias/ReacctBankNative.git
    ```
 2. Instale os NPM packages
    ```sh

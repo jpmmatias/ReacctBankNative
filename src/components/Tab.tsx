@@ -3,9 +3,19 @@ import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { FontAwesome5, MaterialCommunityIcons } from '@expo/vector-icons';
 import { ITab } from '../types';
 
+//@ts-ignore
+import styled from 'styled-components/native';
+
+const Container = styled.TouchableOpacity`
+	flex: 1;
+	align-items: center;
+	justify-content: center;
+	padding: 2px;
+`;
+
 const Tab = ({ color, tab, onPress, icon }: ITab) => {
 	return (
-		<TouchableOpacity style={styles.container} onPress={onPress}>
+		<Container onPress={onPress}>
 			{icon !== 'cash-plus' ? (
 				<FontAwesome5 name={icon} size={24} color={color} />
 			) : (
@@ -21,17 +31,8 @@ const Tab = ({ color, tab, onPress, icon }: ITab) => {
 			>
 				{tab.name}
 			</Text>
-		</TouchableOpacity>
+		</Container>
 	);
 };
 
 export default Tab;
-
-const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		alignItems: 'center',
-		justifyContent: 'center',
-		padding: 2,
-	},
-});

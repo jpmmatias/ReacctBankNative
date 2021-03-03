@@ -1,31 +1,32 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
+//@ts-ignore
+import styled from 'styled-components/native';
 
+const Container = styled.View`
+	border-radius: 8px;
+	background-color: #fff;
+	margin-top: 6px;
+	margin-bottom: 6px;
+`;
+
+const ContentWrapper = styled.View`
+	margin: 27px 20px;
+`;
 const Card: React.FC = ({ children }) => {
-	const { card, cardContent } = styles;
 	return (
-		<View style={card}>
-			<View style={cardContent}>{children}</View>
-		</View>
+		<Container
+			style={{
+				elevation: 3,
+				shadowOffset: { width: 1, height: 1 },
+				shadowColor: '#333',
+				shadowOpacity: 0.3,
+				shadowRadius: 2,
+			}}
+		>
+			<ContentWrapper>{children}</ContentWrapper>
+		</Container>
 	);
 };
-
-const styles = StyleSheet.create({
-	card: {
-		borderRadius: 8,
-		elevation: 3,
-		backgroundColor: '#fff',
-		shadowOffset: { width: 1, height: 1 },
-		shadowColor: '#333',
-		shadowOpacity: 0.3,
-		shadowRadius: 2,
-		marginHorizontal: 4,
-		marginVertical: 6,
-	},
-	cardContent: {
-		marginHorizontal: 27,
-		marginVertical: 20,
-	},
-});
 
 export default Card;

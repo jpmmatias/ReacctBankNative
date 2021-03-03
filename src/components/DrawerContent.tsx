@@ -129,6 +129,7 @@ export function DrawerContent(props: DrawerContentComponentProps) {
 				<TouchableOpacity
 					onPress={() => {
 						logout();
+						props.navigation.closeDrawer();
 						props.navigation.navigate('Login');
 					}}
 					style={styles.logoutBtn}
