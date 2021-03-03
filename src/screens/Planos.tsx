@@ -1,6 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { Text, View, StyleSheet, Button } from 'react-native';
-import { Center } from '../components/Center';
+import {
+	Text,
+	View,
+	StyleSheet,
+	Button,
+	ScrollView,
+	Dimensions,
+} from 'react-native';
+import Header from '../components/Header';
 import Card from '../components/Card';
 import api from '../services/api';
 import Toast from 'react-native-toast-message';
@@ -10,6 +17,7 @@ import { Picker } from '@react-native-community/picker';
 import { useDispatch, useStore } from 'react-redux';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { putPlanoConta, savePlanosConta } from '../store/modules/user/action';
+const { width, height } = Dimensions.get('screen');
 
 const Planos = ({ navigation, route }: AppTabNavProps<'Planos'>) => {
 	const store = useStore();
@@ -17,11 +25,10 @@ const Planos = ({ navigation, route }: AppTabNavProps<'Planos'>) => {
 	const globalPlanosConta: IPlanoconta[] = store.getState().user.planosConta;
 	const dispatch = useDispatch();
 
-	console.log(globalPlanosConta);
-
 	const [listData, setListData] = useState<IListData[]>([]);
 	const [planosConta, setPlanosConta] = useState<IPlanoconta[]>([]);
 	const [descricao, setDescricao] = useState('');
+	const [nome, setNome] = useState('');
 	const [tipoMovimento, setTipoMovimento] = useState('');
 
 	const [novoPlano, setNovoPlano] = useState<IPlanoconta>({
@@ -53,12 +60,36 @@ const Planos = ({ navigation, route }: AppTabNavProps<'Planos'>) => {
 					position: 'top',
 					text1: 'sucesso',
 				});
+
+				let planosContaAux: IPlanoconta[] = res.data;
+				dispatch(savePlanosConta(planosContaAux));
+				let result: IListData[] = [];
+				for (let i = 0; i < planosContaAux.length; i++) {
+					result.push({
+						key:
+							planosContaAux[i].descricao +
+							' (' +
+							planosContaAux[i].tipoMovimento +
+							')',
+					});
+				}
+
+				setListData(result);
+				setPlanosConta(res.data);
+			})
+			.catch((err) => {
+				Toast.show({
+					type: 'error',
+					position: 'top',
+					text1: err.message,
+				});
 				dispatch(putPlanoConta(plano));
 			})
 			.catch((err) => {});
 	}
 
 	useEffect(() => {
+		setNome(user.nome);
 		async function load() {
 			console.log(await AsyncStorage.getItem('@tokenApp'));
 			api
@@ -103,50 +134,72 @@ const Planos = ({ navigation, route }: AppTabNavProps<'Planos'>) => {
 		load();
 	}, []);
 
+	const handleHeaderPress = () => {
+		alert('open drawer');
+	};
+	const gotToHome = () => {
+		navigation.navigate('Home');
+	};
+
 	return (
-		<Center>
-			<Card>
-				<Text>Plano de Contas</Text>
-				<TextInput
-					placeholderTextColor='#878686'
-					placeholder='Nome'
-					textContentType='name'
-					blurOnSubmit={false}
-					style={[styles.input, { marginBottom: 40 }]}
-					value={descricao}
-					onChangeText={(text: string) =>
-						handleChange(setDescricao, 'descricao', text)
-					}
-				></TextInput>
-				<Picker
-					selectedValue={tipoMovimento}
-					onValueChange={(value) =>
-						handleChange(setTipoMovimento, 'tipoMovimento', value.toString())
-					}
+		<View style={styles.container}>
+			<Header name={nome} openDrawer={handleHeaderPress} goToHome={gotToHome} />
+			<ScrollView style={styles.scrollWrapper}>
+				<View
+					style={{
+						justifyContent: 'center',
+						alignItems: 'center',
+						flex: 1,
+					}}
 				>
-					{globalPlanosConta.map((planoConta) => {
-						if (planoConta.padrao) {
-							return (
-								<Picker.Item
-									label={
-										planoConta.descricao +
-										' (' +
-										planoConta.tipoMovimento +
-										') '
-									}
-									value={planoConta.tipoMovimento}
-								/>
-							);
-						}
-					})}
-				</Picker>
-				<Button title='Adicionar' onPress={adicionarPlanoContas} />
-				<FlatList
-					data={listData}
-					renderItem={({ item }) => <Text>{item.key} </Text>}
-				/>
-			</Card>
-		</Center>
+					<Card>
+						<Text>Plano de Contas</Text>
+						<TextInput
+							placeholderTextColor='#878686'
+							placeholder='Nome'
+							textContentType='name'
+							blurOnSubmit={false}
+							style={[styles.input, { marginBottom: 40 }]}
+							value={descricao}
+							onChangeText={(text: string) =>
+								handleChange(setDescricao, 'descricao', text)
+							}
+						></TextInput>
+						<Picker
+							selectedValue={tipoMovimento}
+							onValueChange={(value) =>
+								handleChange(
+									setTipoMovimento,
+									'tipoMovimento',
+									value.toString()
+								)
+							}
+						>
+							{globalPlanosConta.map((planoConta) => {
+								if (planoConta.padrao) {
+									return (
+										<Picker.Item
+											label={
+												planoConta.descricao +
+												' (' +
+												planoConta.tipoMovimento +
+												') '
+											}
+											value={planoConta.tipoMovimento}
+										/>
+									);
+								}
+							})}
+						</Picker>
+						<Button title='Adicionar' onPress={adicionarPlanoContas} />
+						<FlatList
+							data={listData}
+							renderItem={({ item }) => <Text>{item.key} </Text>}
+						/>
+					</Card>
+				</View>
+			</ScrollView>
+		</View>
 	);
 };
 
@@ -155,6 +208,17 @@ const styles = StyleSheet.create({
 		padding: 5,
 		borderBottomWidth: 1,
 		borderBottomColor: '#878686',
+	},
+	container: {
+		flex: 1,
+		backgroundColor: '#8C52E5',
+	},
+	font: {
+		fontFamily: 'Roboto-Regular',
+	},
+	scrollWrapper: {
+		maxHeight: (height * 73) / 100,
+		paddingHorizontal: (width * 7) / 100,
 	},
 });
 

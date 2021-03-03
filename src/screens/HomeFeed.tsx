@@ -1,11 +1,12 @@
-import React from 'react';
-import Card from '../components/Card';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet, View, ScrollView, Dimensions } from 'react-native';
-import { HomeDrawerNavProps } from '../types';
+import { HomeDrawerNavProps, IUser } from '../types';
 import Header from '../components/Header';
 import CardSaldoConta from '../components/CardSaldoConta';
 import CardPlanosDeConta from '../components/CardPlanosDeConta';
 import CardUltimosLançamentos from '../components/CardUltimosLancamentos';
+import { useStore } from 'react-redux';
+
 const { width, height } = Dimensions.get('screen');
 
 // Lançamentos temporario
@@ -17,6 +18,12 @@ const lancamentos = [
 ];
 
 function HomeFeed({ navigation }: HomeDrawerNavProps<'HomeFeed'>) {
+	const [nome, setNome] = useState<string>('');
+	const store = useStore();
+	useEffect(() => {
+		const user: IUser = store.getState().user.user;
+		setNome(user.nome);
+	}, []);
 	const handleHeaderPress = () => {
 		navigation.openDrawer();
 	};
@@ -25,11 +32,7 @@ function HomeFeed({ navigation }: HomeDrawerNavProps<'HomeFeed'>) {
 	};
 	return (
 		<View style={styles.container}>
-			<Header
-				name='Usuário'
-				openDrawer={handleHeaderPress}
-				goToHome={gotToHome}
-			/>
+			<Header name={nome} openDrawer={handleHeaderPress} goToHome={gotToHome} />
 			<ScrollView style={styles.scrollWrapper}>
 				<CardSaldoConta saldoDaConta={0} lancamentoDeDebito={0} />
 				<CardPlanosDeConta receita={0} despesas={0} />

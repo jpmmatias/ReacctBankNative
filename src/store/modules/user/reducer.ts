@@ -1,8 +1,9 @@
 import { Reducer } from 'redux';
-import { IUser } from '../../../types';
+import { IPlanoconta, IUser } from '../../../types';
 
 interface IState{
 	user:IUser
+	planosConta:IPlanoconta[]
 }
 
 const INITIAL_STATE:IState = {
@@ -15,6 +16,7 @@ const INITIAL_STATE:IState = {
 		redefinirSenha:false,
 		senhaTemporaria:'',
 	},
+	planosConta:[],
 };
 
 const userReducer: Reducer<IState> = (state:IState = INITIAL_STATE, action) => {
@@ -26,6 +28,23 @@ const userReducer: Reducer<IState> = (state:IState = INITIAL_STATE, action) => {
 				...state,
 				user
 			};
+		case 'ADD_PLANOS_CONTA':
+		const {planosConta} = action.payload;
+		console.log(planosConta)
+		return {
+			...state,
+			planosConta
+		};
+		case 'PUT_PLANO_CONTA':
+		const {planoConta} = action.payload;
+		console.log(state)
+		return {
+			...state,
+			planosConta:[
+				...state.planosConta,
+				planoConta
+			]
+		};
 		default: {
 			return state;
 		}

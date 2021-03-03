@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
 		width,
 		borderTopStartRadius: 19,
 		borderTopEndRadius: 19,
-		height: 85,
+		height: 100,
 		justifyContent: 'space-between',
 	},
 });

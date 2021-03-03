@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 
 import {
 	View,
@@ -14,6 +14,11 @@ import {
 } from '@react-navigation/drawer';
 import { AuthContext } from '../utils/auth/AuthProvider';
 const { width, height } = Dimensions.get('screen');
+import { useDispatch, useStore } from 'react-redux';
+import { IUser } from '../types';
+import api from '../services/api';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import Toast from 'react-native-toast-message';
 
 const styles = StyleSheet.create({
 	container: {
@@ -55,8 +60,36 @@ const styles = StyleSheet.create({
 	},
 });
 
-export function DrawerContent(props: any) {
+export function DrawerContent(props: DrawerContentComponentProps) {
 	const { logout } = useContext(AuthContext);
+
+	const store = useStore();
+	const dispatch = useDispatch();
+	const user: IUser = store.getState().user.user;
+	const [contas, setcontas] = useState<any>('');
+	useEffect(() => {
+		async function load() {
+			api
+				.get(`dashboard?fim=2021-02-18&inicio=2021-02-18&login=${user.login}`, {
+					headers: {
+						'Content-Type': 'application/json',
+						Authorization: await AsyncStorage.getItem('@tokenApp'),
+					},
+				})
+				.then((res) => {
+					alert(res.data);
+					setcontas(res.data.lancamentos.planosConta);
+				})
+				.catch((err) => {
+					Toast.show({
+						type: 'error',
+						position: 'top',
+						text1: err.message,
+					});
+				});
+		}
+		//load();
+	}, []);
 
 	return (
 		<View style={styles.container}>
@@ -71,7 +104,7 @@ export function DrawerContent(props: any) {
 				{/* Dados do User */}
 				<View style={styles.drawerItem}>
 					<Text style={styles.drawerItem_label}>Seu nome:</Text>
-					<Text style={styles.drawerItem_value}>Nome do Usuário</Text>
+					<Text style={styles.drawerItem_value}>{user.nome}</Text>
 				</View>
 				<View style={styles.drawerItem}>
 					<Text style={styles.drawerItem_label}>Email:</Text>
@@ -79,11 +112,11 @@ export function DrawerContent(props: any) {
 				</View>
 				<View style={styles.drawerItem}>
 					<Text style={styles.drawerItem_label}>UserName</Text>
-					<Text style={styles.drawerItem_value}>UserName</Text>
+					<Text style={styles.drawerItem_value}>{user.login}</Text>
 				</View>
 				<View style={styles.drawerItem}>
 					<Text style={styles.drawerItem_label}>CPF</Text>
-					<Text style={styles.drawerItem_value}>000.000.000-00</Text>
+					<Text style={styles.drawerItem_value}>{user.cpf}</Text>
 				</View>
 				{/* Divisor*/}
 				<View style={styles.divisor}></View>
