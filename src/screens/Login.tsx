@@ -12,6 +12,7 @@ import {
 	Dimensions,
 	TextInput,
 	TouchableWithoutFeedback,
+	ScrollView,
 } from 'react-native';
 import { AuthNavProps, IUser } from '../types';
 const { width, height } = Dimensions.get('window');
@@ -62,11 +63,14 @@ const Login = ({ navigation, route }: AuthNavProps<'Login'>) => {
 				style={styles.logo}
 				source={require('../assets/images/logo-gamaacademy.png')}
 			/>
+			<ScrollView style={styles.scrollWrapper}>
 			<Card>
+			
 				<View style={styles.cardBody}>
 					<Text style={styles.title}>
 						Seja bem vindo, informe seus dados para logar.
 					</Text>
+
 					<View style={styles.form}>
 						<TextInput
 							onSubmitEditing={() => {
@@ -126,7 +130,9 @@ const Login = ({ navigation, route }: AuthNavProps<'Login'>) => {
 						<Text style={styles.link}>Ainda não sou cliente </Text>
 					</TouchableWithoutFeedback>
 				</View>
+				
 			</Card>
+			</ScrollView>
 		</View>
 	);
 };
@@ -137,6 +143,10 @@ const styles = StyleSheet.create({
 		backgroundColor: '#8C52E5',
 		alignItems: 'center',
 		fontFamily: 'Roboto-Regular',
+	},
+	scrollWrapper: {
+		maxHeight: (height * 73) / 100,
+		paddingHorizontal: (width * 7) / 100,
 	},
 	form: {
 		marginBottom: 37,
