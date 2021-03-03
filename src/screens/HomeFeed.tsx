@@ -20,9 +20,16 @@ function HomeFeed({ navigation }: HomeDrawerNavProps<'HomeFeed'>) {
 	const handleHeaderPress = () => {
 		navigation.openDrawer();
 	};
+	const gotToHome = () => {
+		navigation.navigate('HomeFeed');
+	};
 	return (
 		<View style={styles.container}>
-			<Header name='Usuário' onPress={handleHeaderPress} />
+			<Header
+				name='Usuário'
+				openDrawer={handleHeaderPress}
+				goToHome={gotToHome}
+			/>
 			<ScrollView style={styles.scrollWrapper}>
 				<CardSaldoConta saldoDaConta={0} lancamentoDeDebito={0} />
 				<CardPlanosDeConta receita={0} despesas={0} />

@@ -9,13 +9,23 @@ import {
 import { FontAwesome5 } from '@expo/vector-icons';
 const { width, height } = Dimensions.get('screen');
 import { IHeader } from '../types';
-const Header = ({ name, onPress }: IHeader) => {
+const Header = ({ name, openDrawer, goToHome }: IHeader) => {
 	return (
 		<View style={styles.container}>
 			<Text style={styles.text}>Olá {name}</Text>
-			<TouchableOpacity onPress={onPress}>
-				<FontAwesome5 name='user-circle' size={24} color='white' />
-			</TouchableOpacity>
+			<View style={styles.icons}>
+				<TouchableOpacity onPress={goToHome}>
+					<FontAwesome5
+						style={{ marginRight: (width * 5) / 100 }}
+						name='home'
+						size={24}
+						color='white'
+					/>
+				</TouchableOpacity>
+				<TouchableOpacity onPress={openDrawer}>
+					<FontAwesome5 name='user-circle' size={24} color='white' />
+				</TouchableOpacity>
+			</View>
 		</View>
 	);
 };
@@ -35,5 +45,8 @@ const styles = StyleSheet.create({
 		fontFamily: 'Roboto-Medium',
 		fontSize: 22,
 		color: '#fff',
+	},
+	icons: {
+		flexDirection: 'row',
 	},
 });

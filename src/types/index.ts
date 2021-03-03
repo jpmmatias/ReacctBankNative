@@ -39,6 +39,7 @@ export type HomeParamList = {
 
 export type LancamentosParamList = {
 	Lancamentos: undefined;
+	Home: undefined;
 };
 
 export interface HomeDrawerNavProps<T extends keyof HomeParamList> {
@@ -67,7 +68,8 @@ export interface ITab {
 
 export interface IHeader {
 	name: string;
-	onPress: () => void;
+	openDrawer: () => void;
+	goToHome: () => void;
 }
 
 export interface IPlanoconta {
