@@ -13,6 +13,12 @@ const Container = styled.TouchableOpacity`
 	padding: 2px;
 `;
 
+const TabName = styled.Text`
+	font-family: 'Roboto-Medium';
+	margin-top: 12px;
+	font-size: 12px;
+`;
+
 const Tab = ({ color, tab, onPress, icon }: ITab) => {
 	return (
 		<Container onPress={onPress}>
@@ -21,16 +27,13 @@ const Tab = ({ color, tab, onPress, icon }: ITab) => {
 			) : (
 				<MaterialCommunityIcons name={icon} size={24} color={color} />
 			)}
-			<Text
+			<TabName
 				style={{
 					color: color,
-					fontFamily: 'Roboto-Medium',
-					marginTop: 12,
-					fontSize: 12,
 				}}
 			>
 				{tab.name}
-			</Text>
+			</TabName>
 		</Container>
 	);
 };
