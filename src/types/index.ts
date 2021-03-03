@@ -103,3 +103,22 @@ export interface IUser {
 	redefinirSenha: boolean;
 	senhaTemporaria: string;
 }
+
+export interface IDepositoConta {
+	conta: number;
+	data: string;
+	descricao: string;
+	login: string;
+	planoConta: number;
+	valor: number;
+}
+
+export interface IPagamentoConta {
+	conta: number;
+	contaDestino: string;
+	data: string;
+	descricao: string;
+	login: string;
+	planoConta: number;
+	valor: number;
+}
