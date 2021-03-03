@@ -4,17 +4,61 @@ import Button from '../components/Button';
 import api from '../services/api';
 import Toast from 'react-native-toast-message';
 import {
-	StyleSheet,
-	Text,
-	View,
-	Image,
 	Dimensions,
 	TextInput,
 	ScrollView,
 	TouchableWithoutFeedback,
 } from 'react-native';
 import { AuthNavProps } from '../types';
+//@ts-ignore
+import styled from 'styled-components/native';
+
 const { width, height } = Dimensions.get('window');
+
+const Container = styled.View`
+	font-family: 'Roboto-Regular';
+	flex: 1;
+	background-color: #8c52e5;
+	align-items: center;
+`;
+const Link = styled.Text`
+	font-weight: 500;
+	font-size: 13px;
+	margin-bottom: 20px;
+	color: #8c52e5;
+	text-align: center;
+`;
+const Logo = styled.Image`
+	height: 55px;
+	width: 249px;
+	margin-top: 40px;
+	margin-bottom: 60px;
+`;
+
+const CardBody = styled.View`
+	width: ${(width * 70) / 100}px;
+	height: ${(height * 70) / 100}px;
+`;
+
+const Input = styled.TextInput`
+	padding: 5px;
+	border-bottom-width: 1px;
+	border-bottom-color: #878686;
+	margin-bottom: 20px;
+`;
+
+const Form = styled.View`
+	margin-bottom: 37px;
+`;
+
+const Title = styled.Text`
+	margin-top: 5px;
+	font-size: 21px;
+	font-weight: 500;
+	color: #1d1d1d;
+	line-height: 24.61px;
+	margin-bottom: 36px;
+`;
 
 const PasswordRecovery = ({
 	navigation,
@@ -41,44 +85,41 @@ const PasswordRecovery = ({
 	};
 
 	return (
-		<View style={styles.container}>
-			<Image
-				style={styles.logo}
-				source={require('../assets/images/logo-gamaacademy.png')}
-			/>
+		<Container>
+			<Logo source={require('../assets/images/logo-gamaacademy.png')} />
 			<ScrollView>
 				<Card>
-					<View style={styles.cardBody}>
-						<Text style={styles.title}>Redefinir Senha</Text>
-						<View style={styles.form}>
-							<TextInput
+					<CardBody>
+						<Title>Redefinir Senha</Title>
+						<Form>
+							<Input
 								textContentType='emailAddress'
 								value={email}
 								ref={inputRef}
-								onChangeText={(text) => {
+								onChangeText={(text: string) => {
 									setEmail(text);
 								}}
 								blurOnSubmit={false}
 								placeholderTextColor='#878686'
 								placeholder='Digite seu email'
-								style={[styles.input, { marginBottom: 50 }]}
-							></TextInput>
-							<TextInput
+								style={{ marginBottom: 30 }}
+							></Input>
+							<Input
 								onSubmitEditing={() => {
 									if (inputRef.current) {
 										inputRef.current.focus();
 									}
 								}}
+								style={{ marginBottom: 50 }}
 								placeholderTextColor='#878686'
 								placeholder='Digite seu login'
 								textContentType='username'
 								value={username}
-								onChangeText={(text) => {
+								onChangeText={(text: string) => {
 									setUsername(text);
 								}}
 								blurOnSubmit={false}
-								style={[styles.input, { marginBottom: 79 }]}
-							></TextInput>
+							></Input>
 							<Button
 								text='Continuar'
 								handleClick={handleSubmit}
@@ -89,69 +130,26 @@ const PasswordRecovery = ({
 								heightSize={56.97}
 								textWeight='600'
 							/>
-						</View>
+						</Form>
 						<TouchableWithoutFeedback
 							onPress={() => {
 								navigation.navigate('Login');
 							}}
 						>
-							<Text style={styles.link}>Ir para Login</Text>
+							<Link>Ir para Login</Link>
 						</TouchableWithoutFeedback>
 						<TouchableWithoutFeedback
 							onPress={() => {
 								navigation.navigate('SignIn');
 							}}
 						>
-							<Text style={styles.link}>Ainda não sou cliente </Text>
+							<Link>Ainda não sou cliente </Link>
 						</TouchableWithoutFeedback>
-					</View>
+					</CardBody>
 				</Card>
 			</ScrollView>
-		</View>
+		</Container>
 	);
 };
-
-const styles = StyleSheet.create({
-	container: {
-		fontFamily: 'Roboto-Regular',
-		flex: 1,
-		backgroundColor: '#8C52E5',
-		alignItems: 'center',
-	},
-	form: {
-		marginBottom: 37,
-	},
-	logo: {
-		height: 55,
-		width: 249,
-		marginTop: 40,
-		marginBottom: 60,
-	},
-	cardBody: {
-		width: (width * 70) / 100,
-		height: (height * 66) / 100,
-	},
-	title: {
-		marginTop: 5,
-		fontSize: 21,
-		textAlign: 'center',
-		fontWeight: '500',
-		color: '#1d1d1d',
-		lineHeight: 24.61,
-		marginBottom: 60,
-	},
-	link: {
-		fontWeight: '500',
-		fontSize: 13,
-		marginBottom: 20,
-		color: '#8C52E5',
-		textAlign: 'center',
-	},
-	input: {
-		padding: 5,
-		borderBottomWidth: 1,
-		borderBottomColor: '#878686',
-	},
-});
 
 export default PasswordRecovery;

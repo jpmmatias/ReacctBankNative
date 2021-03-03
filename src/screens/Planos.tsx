@@ -11,13 +11,7 @@ import Header from '../components/Header';
 import Card from '../components/Card';
 import api from '../services/api';
 import Toast from 'react-native-toast-message';
-import {
-	AppTabNavProps,
-	IListData,
-	IPlanoconta,
-	IUser,
-	PlanosDrrawerNavProps,
-} from '../types';
+import { IListData, IPlanoconta, IUser, PlanosDrrawerNavProps } from '../types';
 import { FlatList, TextInput } from 'react-native-gesture-handler';
 import { Picker } from '@react-native-community/picker';
 import { useDispatch, useStore } from 'react-redux';

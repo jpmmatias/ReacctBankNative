@@ -8,7 +8,6 @@ import { TextInputMask } from 'react-native-masked-text';
 import styled from 'styled-components/native';
 
 import {
-	StyleSheet,
 	ScrollView,
 	Dimensions,
 	TextInput,
@@ -40,13 +39,13 @@ const Logo = styled.Image`
 `;
 
 const CardBody = styled.View`
-	width: ${(width * 70) / 100};
-	height: ${(height * 70) / 100};
+	width: ${(width * 70) / 100}px;
+	height: ${(height * 70) / 100}px;
 `;
 
 const Input = styled.TextInput`
 	padding: 5px;
-	border-bottom-width: 1;
+	border-bottom-width: 1px;
 	border-bottom-color: #878686;
 	margin-bottom: 20px;
 `;

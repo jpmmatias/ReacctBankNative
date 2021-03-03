@@ -4,9 +4,6 @@ import Button from '../components/Button';
 import api from '../services/api';
 import { useDispatch } from 'react-redux';
 import Toast from 'react-native-toast-message';
-//@ts-ignore
-import styled from 'styled-components/native';
-
 import {
 	Dimensions,
 	TextInput,
@@ -15,13 +12,14 @@ import {
 } from 'react-native';
 import { AuthNavProps, IUser } from '../types';
 const { width, height } = Dimensions.get('window');
-
 import { useStore } from 'react-redux';
-
 import { AuthContext } from '../utils/auth/AuthProvider';
-
 import { LoginUser } from '../store/modules/user/action';
+//@ts-ignore
+import styled from 'styled-components/native';
+
 import AsyncStorage from '@react-native-async-storage/async-storage';
+
 const Container = styled.View`
 	flex: 1;
 	background-color: #8c52e5;
@@ -29,8 +27,8 @@ const Container = styled.View`
 	font-family: 'Roboto-Regular';
 `;
 const CardBody = styled.View`
-	width: ${(width * 70) / 100};
-	height: ${(height * 66) / 100};
+	width: ${(width * 70) / 100}px;
+	height: ${(height * 66) / 100}px;
 `;
 const Tittle = styled.Text`
 	margin-top: 5px;
@@ -56,7 +54,7 @@ const Link = styled.Text`
 const Input = styled.TextInput`
 	margin-bottom: 37px;
 	padding: 5px;
-	border-bottom-width: 1;
+	border-bottom-width: 1px;
 	border-bottom-color: #878686;
 `;
 
@@ -84,6 +82,9 @@ const Login = ({ navigation, route }: AuthNavProps<'Login'>) => {
 				console.log(user);
 				dispatch(LoginUser(user));
 				await AsyncStorage.setItem('@tokenApp', res.data.token);
+			})
+			.then(() => {
+				navigation.navigate('Dashboard');
 			})
 			.catch((err) => {
 				console.log('aaa');

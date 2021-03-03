@@ -5,8 +5,28 @@ import {
 import React, { useState } from 'react';
 import { View, StyleSheet, Dimensions } from 'react-native';
 import Tab from './Tab';
-
+//@ts-ignore
+import styled from 'styled-components/native';
 const { width } = Dimensions.get('screen');
+
+const Wrapper = styled.View`
+	position: absolute;
+	bottom: 0;
+	width: ${width}px;
+	height: 100px;
+	align-items: center;
+	justify-content: center;
+`;
+
+const Container = styled.View`
+	background-color: #68de5a;
+	flex-direction: row;
+	width: ${width}px;
+	border-top-left-radius: 19px;
+	border-top-right-radius: 19px;
+	height: 100px;
+	justify-content: space-between;
+`;
 
 const TabBar = ({
 	state,
@@ -50,8 +70,8 @@ const TabBar = ({
 		}
 	};
 	return (
-		<View style={styles.wrapper}>
-			<View style={styles.container}>
+		<Wrapper>
+			<Container>
 				{routes.map((route, index) => {
 					if (route.name !== 'Home') {
 						return (
@@ -65,29 +85,9 @@ const TabBar = ({
 						);
 					}
 				})}
-			</View>
-		</View>
+			</Container>
+		</Wrapper>
 	);
 };
-
-const styles = StyleSheet.create({
-	wrapper: {
-		position: 'absolute',
-		bottom: 0,
-		width,
-		height: 100,
-		alignItems: 'center',
-		justifyContent: 'center',
-	},
-	container: {
-		backgroundColor: '#68DE5A',
-		flexDirection: 'row',
-		width,
-		borderTopStartRadius: 19,
-		borderTopEndRadius: 19,
-		height: 100,
-		justifyContent: 'space-between',
-	},
-});
 
 export default TabBar;
