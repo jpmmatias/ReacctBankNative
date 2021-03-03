@@ -7,7 +7,7 @@ const Depositar = ({ navigation, route }: AppTabNavProps<'Depositar'>) => {
 	return (
 		<Card>
 			<View style={{ width: 200, height: 100 }}>
-        <View style={depositHeader}>
+        <View style={styles.depositHeader}>
           <Text>Depósitos</Text>
         </View>
         <View style={styles.depositContentWrapper}>
