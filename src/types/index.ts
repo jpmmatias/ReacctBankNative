@@ -35,8 +35,13 @@ export interface AuthNavProps<T extends keyof AuthParamList> {
 
 export type HomeParamList = {
 	HomeFeed: undefined;
+	Login: undefined;
 };
 
+export type PlanosParamList = {
+	Planos: undefined;
+	Home: undefined;
+};
 export type LancamentosParamList = {
 	Lancamentos: undefined;
 	Home: undefined;
@@ -45,6 +50,11 @@ export type LancamentosParamList = {
 export interface HomeDrawerNavProps<T extends keyof HomeParamList> {
 	navigation: DrawerNavigationProp<HomeParamList, T>;
 	route: RouteProp<HomeParamList, T>;
+}
+
+export interface PlanosDrrawerNavProps<T extends keyof PlanosParamList> {
+	navigation: DrawerNavigationProp<PlanosParamList, T>;
+	route: RouteProp<PlanosParamList, T>;
 }
 
 export interface LancamentosDrawerNavProps<
@@ -84,12 +94,12 @@ export interface IListData {
 	key: string;
 }
 
-export interface IUser{
-	id:number,
-	login:string,
-	cpf:string,
-	nome:string,
-	senha:string,
-	redefinirSenha:boolean,
-	senhaTemporaria:string,
+export interface IUser {
+	id: number;
+	login: string;
+	cpf: string;
+	nome: string;
+	senha: string;
+	redefinirSenha: boolean;
+	senhaTemporaria: string;
 }

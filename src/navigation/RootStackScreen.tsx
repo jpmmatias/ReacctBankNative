@@ -56,7 +56,7 @@ const RootStackScreen = () => {
 			screenOptions={{ animationEnabled: false }}
 			mode='modal'
 		>
-			{!logged ? (
+			{logged ? (
 				<RootStack.Screen name='AppTabs' component={AppTabs} />
 			) : (
 				<RootStack.Screen name='AuthRoutes' component={AuthRoutes} />

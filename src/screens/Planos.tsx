@@ -11,7 +11,13 @@ import Header from '../components/Header';
 import Card from '../components/Card';
 import api from '../services/api';
 import Toast from 'react-native-toast-message';
-import { AppTabNavProps, IListData, IPlanoconta, IUser } from '../types';
+import {
+	AppTabNavProps,
+	IListData,
+	IPlanoconta,
+	IUser,
+	PlanosDrrawerNavProps,
+} from '../types';
 import { FlatList, TextInput } from 'react-native-gesture-handler';
 import { Picker } from '@react-native-community/picker';
 import { useDispatch, useStore } from 'react-redux';
@@ -19,7 +25,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { putPlanoConta, savePlanosConta } from '../store/modules/user/action';
 const { width, height } = Dimensions.get('screen');
 
-const Planos = ({ navigation, route }: AppTabNavProps<'Planos'>) => {
+const Planos = ({ navigation, route }: PlanosDrrawerNavProps<'Planos'>) => {
 	const store = useStore();
 	const user: IUser = store.getState().user.user;
 	const globalPlanosConta: IPlanoconta[] = store.getState().user.planosConta;
@@ -135,7 +141,7 @@ const Planos = ({ navigation, route }: AppTabNavProps<'Planos'>) => {
 	}, []);
 
 	const handleHeaderPress = () => {
-		alert('open drawer');
+		navigation.openDrawer();
 	};
 	const gotToHome = () => {
 		navigation.navigate('Home');
