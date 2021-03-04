@@ -97,51 +97,6 @@ const Planos = ({ navigation, route }: PlanosDrrawerNavProps<'Planos'>) => {
 		setListData(result)
 	},[globalPlanosConta])
 
-	useEffect(() => {
-		setNome(user.nome);
-		async function load() {
-			api
-				.get(`/lancamentos/planos-conta?login=${user.login}`, {
-					headers: {
-						'Content-Type': 'application/json',
-						Authorization: await AsyncStorage.getItem('@tokenApp'),
-					},
-				})
-				.then((res) => {
-					Toast.show({
-						type: 'success',
-						position: 'top',
-						text1: 'sucesso',
-					});
-
-					let planosContaAux: IPlanoconta[] = res.data;
-					dispatch(savePlanosConta(planosContaAux));
-					let result: IListData[] = [];
-					for (let i = 0; i < planosContaAux.length; i++) {
-						result.push({
-							key:
-								planosContaAux[i].descricao +
-								' (' +
-								planosContaAux[i].tipoMovimento +
-								')',
-						});
-					}
-
-					setListData(result);
-					setPlanosConta(res.data);
-				})
-				.catch((err) => {
-					Toast.show({
-						type: 'error',
-						position: 'top',
-						text1: err.message,
-					});
-				});
-		}
-
-		load();
-	}, []);
-
 	const handleHeaderPress = () => {
 		navigation.openDrawer();
 	};

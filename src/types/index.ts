@@ -140,7 +140,7 @@ export interface ILancamento{
 	data: string,
 	descricao:string,
 	login: string,
-	conta: IConta,
+	conta: number,
 	planoConta:number
 }
 

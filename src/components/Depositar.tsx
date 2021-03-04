@@ -25,7 +25,7 @@ const Depositar = ({ navigation, route }: AppTabNavProps<'Depositar'>) => {
 
 	const store = useStore()
 	const dispatch = useDispatch()
-	const dadosUser = store.getState().user.dadosUser
+	const dadosUser:IDadosUser = store.getState().user.dadosUser
 	const user:IUser = store.getState().user.user
 
 	const[valor, setValor] = useState(0)
@@ -71,7 +71,6 @@ const Depositar = ({ navigation, route }: AppTabNavProps<'Depositar'>) => {
 					default:
 						break;
 				}
-				store.getState().SetScreen('home');
 				Toast.show({
 					type: 'success',
 					position: 'top',
@@ -86,6 +85,14 @@ const Depositar = ({ navigation, route }: AppTabNavProps<'Depositar'>) => {
 					text1: 'Oops',
 					text2: err.message,
 				});
+				dadosUser.contaBanco.saldo += deposito.valor;
+				if(dadosUser.contaBanco.lancamentos === undefined){
+					dadosUser.contaBanco.lancamentos = [deposito]
+				}else{
+					dadosUser.contaBanco.lancamentos.push(deposito);
+				}
+				
+				dispatch(DadosUserInfo(dadosUser));
 			});
 		}
 

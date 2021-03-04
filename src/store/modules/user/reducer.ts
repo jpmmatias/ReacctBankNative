@@ -25,12 +25,12 @@ const INITIAL_STATE:IState = {
 	dadosUser:{
 		contaBanco:{
 			saldo:0,
-			number:0,
+			id:0,
 			lancamentos:[],
 		},
 		contaCredito:{
 			saldo:0,
-			number:0,
+			id:0,
 			lancamentos:[],
 		}
 	},
