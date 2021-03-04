@@ -1,4 +1,4 @@
-import { IPlanoconta, IUser, IDepositoConta, IPagamentoConta } from '../../../types';
+import { IPlanoconta, IUser, IDepositoConta, IPagamentoConta, IDadosUser } from '../../../types';
 
 export function LoginUser(user: IUser) {
 	return {
@@ -41,6 +41,15 @@ export function DepositoContaInfo (DepositoConta: IDepositoConta){
 	  type:"ADD_PAGAMENTO_CONTA",
 	  payload:{
 		PagamentoConta
+	  }
+	}
+  }
+
+  export function DadosUserInfo (dadosUser: IDadosUser){
+	return{
+	  type:"ADD_DADOS_USER",
+	  payload:{
+		dadosUser
 	  }
 	}
   }
