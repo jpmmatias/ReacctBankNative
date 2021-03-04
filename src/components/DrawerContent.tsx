@@ -15,7 +15,7 @@ import {
 import { AuthContext } from '../utils/auth/AuthProvider';
 const { width, height } = Dimensions.get('screen');
 import { useDispatch, useStore } from 'react-redux';
-import { IUser } from '../types';
+import { IPlanoconta, IUser } from '../types';
 import api from '../services/api';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Toast from 'react-native-toast-message';
@@ -66,6 +66,7 @@ export function DrawerContent(props: DrawerContentComponentProps) {
 	const store = useStore();
 	const dispatch = useDispatch();
 	const user: IUser = store.getState().user.user;
+	const planosConta:IPlanoconta[] = store.getState().user.planosConta
 	const [contas, setcontas] = useState<any>('');
 	useEffect(() => {
 		async function load() {
@@ -123,7 +124,7 @@ export function DrawerContent(props: DrawerContentComponentProps) {
 				{/* Numero de planos */}
 				<View style={styles.drawerItem}>
 					<Text style={styles.drawerItem_label}>Você tem</Text>
-					<Text style={styles.drawerItem_value}>4 planos de conta</Text>
+					<Text style={styles.drawerItem_value}>{planosConta.length+" planos de Conta"}</Text>
 				</View>
 
 				<TouchableOpacity

@@ -1,13 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, Dimensions } from 'react-native';
-import { HomeDrawerNavProps, IUser } from '../types';
+import { HomeDrawerNavProps, IDadosUser, IListData, IPlanoconta, IUser } from '../types';
 import Header from '../components/Header';
 import CardSaldoConta from '../components/CardSaldoConta';
 import CardPlanosDeConta from '../components/CardPlanosDeConta';
 import CardUltimosLançamentos from '../components/CardUltimosLancamentos';
-import { useStore } from 'react-redux';
+import { useDispatch, useStore } from 'react-redux';
 //@ts-ignore
 import styled from 'styled-components/native';
+import api from '../services/api';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import Toast from 'react-native-toast-message';
+import { savePlanosConta } from '../store/modules/user/action';
 const { width, height } = Dimensions.get('screen');
 
 const Container = styled.View`
@@ -32,6 +36,10 @@ const lancamentos = [
 function HomeFeed({ navigation }: HomeDrawerNavProps<'HomeFeed'>) {
 	const [nome, setNome] = useState<string>('');
 	const store = useStore();
+	const user = store.getState().user.user
+	const dadosUser:IDadosUser = store.getState().user.dadosUser
+	const dispatch = useDispatch()
+	
 	useEffect(() => {
 		const user: IUser = store.getState().user.user;
 		setNome(user.nome);
@@ -42,11 +50,45 @@ function HomeFeed({ navigation }: HomeDrawerNavProps<'HomeFeed'>) {
 	const gotToHome = () => {
 		navigation.navigate('HomeFeed');
 	};
+
+	//load plano de contas
+	useEffect(() => {
+		setNome(user.nome);
+		async function load() {
+			api
+				.get(`/lancamentos/planos-conta?login=${user.login}`, {
+					headers: {
+						'Content-Type': 'application/json',
+						Authorization: await AsyncStorage.getItem('@tokenApp'),
+					},
+				})
+				.then((res) => {
+					Toast.show({
+						type: 'success',
+						position: 'top',
+						text1: 'sucesso',
+					});
+
+					dispatch(savePlanosConta(res.data));
+					
+				})
+				.catch((err) => {
+					Toast.show({
+						type: 'error',
+						position: 'top',
+						text1: err.message,
+					});
+				});
+		}
+
+		load();
+	}, []);
+
 	return (
 		<Container>
 			<Header name={nome} openDrawer={handleHeaderPress} goToHome={gotToHome} />
 			<ScrolView>
-				<CardSaldoConta saldoDaConta={0} lancamentoDeDebito={0} />
+				<CardSaldoConta saldoDaConta={dadosUser.contaBanco.saldo} lancamentoDeDebito={0} />
 				<CardPlanosDeConta receita={0} despesas={0} />
 				<CardUltimosLançamentos lancamentos={lancamentos} />
 			</ScrolView>
