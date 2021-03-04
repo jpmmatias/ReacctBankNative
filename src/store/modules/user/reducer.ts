@@ -1,11 +1,12 @@
 import { Reducer } from 'redux';
-import { IPlanoconta, IUser, IDepositoConta, IPagamentoConta} from '../../../types';
+import { IPlanoconta, IUser, IDepositoConta, IPagamentoConta, IDadosUser} from '../../../types';
 
 interface IState{
 	user:IUser
 	planosConta:IPlanoconta[]
 	DepositosConta:IDepositoConta[]
 	PagamentosConta:IPagamentoConta[]
+	dadosUser:IDadosUser
 }
 
 const INITIAL_STATE:IState = {
@@ -21,6 +22,18 @@ const INITIAL_STATE:IState = {
 	planosConta:[],
 	DepositosConta:[],
 	PagamentosConta:[],
+	dadosUser:{
+		contaBanco:{
+			saldo:0,
+			number:0,
+			lancamentos:[],
+		},
+		contaCredito:{
+			saldo:0,
+			number:0,
+			lancamentos:[],
+		}
+	},
 };
 
 const userReducer: Reducer<IState> = (state:IState = INITIAL_STATE, action) => {
@@ -57,13 +70,20 @@ const userReducer: Reducer<IState> = (state:IState = INITIAL_STATE, action) => {
 				DepositosConta: [...state.DepositosConta, DepositoConta],
 			};
 
-			case 'ADD_PAGAMENTO_CONTA':
-				const { PagamentoConta } = action.payload;
-				console.log(state);
-				return {
-					...state,
-					PagamentosConta: [...state.PagamentosConta, PagamentoConta],
-				};
+		case 'ADD_PAGAMENTO_CONTA':
+			const { PagamentoConta } = action.payload;
+			console.log(state);
+			return {
+				...state,
+				PagamentosConta: [...state.PagamentosConta, PagamentoConta],
+			};
+		case 'ADD_DADOS_USER':
+			const { dadosUser } = action.payload;
+			console.log(action.payload);
+			return {
+				...state,
+				dadosUser,
+			};
 
 		default: {
 			return state;

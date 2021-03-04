@@ -123,3 +123,24 @@ export interface IPagamentoConta {
 	planoConta: number;
 	valor: number;
 }
+
+export interface IConta{
+	saldo:number,
+	lancamentos:ILancamento[],
+	id:number,	
+}
+
+export interface IDadosUser {
+	contaBanco: IConta;
+	contaCredito: IConta;
+}
+
+export interface ILancamento{
+	valor:number,
+	data: string,
+	descricao:string,
+	login: string,
+	conta: IConta,
+	planoConta:number
+}
+

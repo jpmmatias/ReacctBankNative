@@ -10,11 +10,11 @@ import {
 	TouchableWithoutFeedback,
 	ScrollView,
 } from 'react-native';
-import { AuthNavProps, IUser } from '../types';
+import { AuthNavProps, IDadosUser, IUser } from '../types';
 const { width, height } = Dimensions.get('window');
 import { useStore } from 'react-redux';
 import { AuthContext } from '../utils/auth/AuthProvider';
-import { LoginUser } from '../store/modules/user/action';
+import { DadosUserInfo, LoginUser } from '../store/modules/user/action';
 //@ts-ignore
 import styled from 'styled-components/native';
 
@@ -79,7 +79,9 @@ const Login = ({ navigation, route }: AuthNavProps<'Login'>) => {
 			.then(async (res: any) => {
 				login();
 				let user: IUser = res.data.usuario;
-				console.log(user);
+				let dadosUser:IDadosUser = {contaBanco:res.data.conta, contaCredito:res.data.contaCredito}
+				dispatch(DadosUserInfo(dadosUser))
+				console.log(res.data)
 				dispatch(LoginUser(user));
 				await AsyncStorage.setItem('@tokenApp', res.data.token);
 			})

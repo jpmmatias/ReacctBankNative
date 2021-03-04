@@ -1,8 +1,8 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { View, Text } from 'react-native';
 import Card from '../components/Card';
 import Button from '../components/Button';
-import { AppTabNavProps } from '../types';
+import { AppTabNavProps, IDadosUser, IDepositoConta, ILancamento, IUser } from '../types';
 import {
 	StyleSheet,
 	Image,
@@ -11,12 +11,89 @@ import {
 	TouchableOpacity,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { useDispatch, useStore } from 'react-redux';
+import api from '../services/api';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { DadosUserInfo } from '../store/modules/user/action';
+import Toast from 'react-native-toast-message';
+import userReducer from '../store/modules/user/reducer';
 
 const { width, height } = Dimensions.get('window');
 const Depositar = ({ navigation, route }: AppTabNavProps<'Depositar'>) => {
 	navigation.setOptions({ tabBarVisible: false });
-	const handleSubmit = () => {};
 	const inputRef = useRef<TextInput>(null);
+
+	const store = useStore()
+	const dispatch = useDispatch()
+	const dadosUser = store.getState().user.dadosUser
+	const user:IUser = store.getState().user.user
+
+	const[valor, setValor] = useState(0)
+	const[data, setData] = useState('')
+	const[descricao, setDescricao] = useState('')
+
+
+	function fazerDeposito(){
+		let deposito:ILancamento = {
+			valor:valor,
+			data:data,
+			descricao:descricao,
+			login: user.login,
+			conta: dadosUser.contaBanco.id,
+			planoConta:838
+		};
+		
+		async function postDeposito( ){
+			api
+			.post('lancamentos', deposito, {
+				headers: {
+					'Content-Type': 'application/json',
+					Authorization:  await AsyncStorage.getItem('@tokenApp'),
+				},
+			})
+			.then((res) => {
+				switch (deposito.planoConta) {
+					case 838:
+						dadosUser.contaBanco.saldo += deposito.valor;
+						dadosUser.contaBanco.lancamentos.push(deposito);
+						dispatch(DadosUserInfo(dadosUser));
+						break;
+					case 840:
+						dadosUser.contaBanco.saldo -= deposito.valor;
+						dadosUser.contaCredito.saldo += deposito.valor;
+						dadosUser.contaCredito.lancamentos.push(deposito);
+						dadosUser.contaBanco.lancamentos.push({
+							...deposito,
+							valor: deposito.valor * -1,
+						});
+						dispatch(DadosUserInfo(dadosUser));
+						break;
+					default:
+						break;
+				}
+				store.getState().SetScreen('home');
+				Toast.show({
+					type: 'success',
+					position: 'top',
+					text1: 'Oops',
+					text2: "Depósito Realizado com Sucesso!",
+				});
+			})
+			.catch((err) => {
+				Toast.show({
+					type: 'error',
+					position: 'top',
+					text1: 'Oops',
+					text2: err.message,
+				});
+			});
+		}
+
+		postDeposito()
+		
+	}
+
+
 	return (
 		<View style={styles.container}>
 			<Image
@@ -47,24 +124,25 @@ const Depositar = ({ navigation, route }: AppTabNavProps<'Depositar'>) => {
 					<Text style={styles.depos}>Depósitos</Text>
 					<View style={styles.form}>
 						<TextInput
-							placeholder='Destinatário'
+							value={valor.toString()}
+							onChangeText={(value) => value != ''? setValor(parseFloat(value)) : setValor(0)}
 							style={[styles.input, { marginBottom: 20 }]}
 						></TextInput>
 						<TextInput
-							placeholder='Plano de conta'
+							placeholder='Data'
+							value={data}
+							onChangeText={(value) => setData(value)}
 							style={[styles.input, { marginBottom: 20 }]}
 						></TextInput>
 						<TextInput
-							placeholder='Tipo de transação'
-							style={[styles.input, { marginBottom: 20 }]}
-						></TextInput>
-						<TextInput
-							placeholder='Valor de depósito'
+							placeholder='Descrição'
+							value={descricao}
+							onChangeText={(value) => setDescricao(value)}
 							style={[styles.input, { marginBottom: 50 }]}
 						></TextInput>
 						<Button
 							text='Realizar Depósitos'
-							handleClick={handleSubmit}
+							handleClick={fazerDeposito}
 							textColor='#fff'
 							backgroundColor='#68DE5A'
 							textSize={22}
