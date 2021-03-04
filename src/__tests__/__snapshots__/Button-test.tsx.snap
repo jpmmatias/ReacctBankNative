@@ -1,0 +1,51 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`button 1`] = `
+<View
+  accessible={true}
+  focusable={true}
+  onClick={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    Object {
+      "borderRadius": 20,
+      "height": 56.97,
+      "width": 265.64,
+    }
+  }
+>
+  <View
+    style={
+      Array [
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "#68DE5A",
+          "borderRadius": 20,
+          "height": 56.97,
+          "justifyContent": "center",
+          "width": 265.64,
+        },
+      ]
+    }
+  >
+    <Text
+      style={
+        Array [
+          Object {
+            "color": "#fff",
+            "fontSize": 22,
+            "fontWeight": "600",
+          },
+        ]
+      }
+    >
+      Realizar Depósitos
+    </Text>
+  </View>
+</View>
+`;

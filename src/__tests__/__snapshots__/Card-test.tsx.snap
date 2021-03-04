@@ -1,0 +1,77 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`card 1`] = `
+<View
+  style={
+    Array [
+      Object {
+        "backgroundColor": "#fff",
+        "borderRadius": 8,
+        "marginBottom": 6,
+        "marginTop": 6,
+      },
+      Object {
+        "elevation": 3,
+        "shadowColor": "#333",
+        "shadowOffset": Object {
+          "height": 1,
+          "width": 1,
+        },
+        "shadowOpacity": 0.3,
+        "shadowRadius": 2,
+      },
+    ]
+  }
+>
+  <View
+    style={
+      Array [
+        Object {
+          "marginBottom": 27,
+          "marginLeft": 20,
+          "marginRight": 20,
+          "marginTop": 27,
+        },
+      ]
+    }
+  />
+</View>
+`;
+
+exports[`snapshoot 1`] = `
+<View
+  style={
+    Array [
+      Object {
+        "backgroundColor": "#fff",
+        "borderRadius": 8,
+        "marginBottom": 6,
+        "marginTop": 6,
+      },
+      Object {
+        "elevation": 3,
+        "shadowColor": "#333",
+        "shadowOffset": Object {
+          "height": 1,
+          "width": 1,
+        },
+        "shadowOpacity": 0.3,
+        "shadowRadius": 2,
+      },
+    ]
+  }
+>
+  <View
+    style={
+      Array [
+        Object {
+          "marginBottom": 27,
+          "marginLeft": 20,
+          "marginRight": 20,
+          "marginTop": 27,
+        },
+      ]
+    }
+  />
+</View>
+`;
